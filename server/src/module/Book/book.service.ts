@@ -1,3 +1,4 @@
+import QueryBuilder from "../../builder/queryBuilder";
 import { IBook } from "./book.interface";
 import Book from "./book.model";
 
@@ -6,9 +7,19 @@ import Book from "./book.model";
 const createBook = async (payload: IBook): Promise<IBook> => {
     const result = await Book.create(payload);
     return result;
-}
-const getBooks = async () => {
-    const result = await Book.find();
+};
+
+
+const getBooks = async (query: Record<string, unknown>) => {
+    const searchableFields = ['title', 'author'];
+    const books = new QueryBuilder(Book.find(), query)
+        .search(searchableFields)
+        .filter()
+        .paginate()
+        .sort()
+        .select()
+
+    const result = await books.modelQuery
     return result;
 }
 
