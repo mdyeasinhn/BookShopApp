@@ -1,5 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -12,44 +12,75 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux/hooks";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
+import { verifyToken } from "@/utils/verifyToken";
+import { setUser, TUser } from "@/redux/features/auth/authSlice";
 
+// Zod schema for login form validation
 const loginSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
 });
 
-type LoginForm = z.infer<typeof loginSchema>;
+type LoginFormType = z.infer<typeof loginSchema>;
 
-export function LoginForm() {
-  const form = useForm<LoginForm>({
+const LoginForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [login] = useLoginMutation();
+
+  // Move useForm inside the component
+  const form = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
-  const onSubmit = (data: LoginForm) => {
+  const onSubmit = async (data: LoginFormType) => {
     console.log("Login Data:", data);
-    // Handle login logic here (API call, authentication, etc.)
+    const toastId = toast.loading("Logging in...");
+  
+    try {
+      const userInfo = {
+        email: data.email,
+        password: data.password,
+      };
+  
+      const res = await login(userInfo).unwrap();
+      console.log("API Response:", res);
+  
+      if (res?.data?.token) {
+        const user = verifyToken(res.data.token) as TUser;
+        console.log("Decoded User:", user);
+  
+        dispatch(setUser({ user, token: res.data.token }));
+        toast.success("Logged in successfully!", { id: toastId, duration: 2000 });
+        navigate("/");
+      } else {
+        throw new Error("Access token not found in response.");
+      }
+    } catch (err) {
+      console.error("Login Error:", err);
+      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+    }
   };
+  
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 lg:mt-16 w-[400px] mx-auto p-6 border rounded-lg shadow">
-        <h2 className="text-2xl font-semibold text-center">Login</h2>
-
-        {/* Name Field */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your name" type="text" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6 lg:mt-16 w-[400px] mx-auto p-6 rounded-lg shadow-xl"
+      >
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold">Login</h2>
+          <p>Enter your email below to log in to your account.</p>
+        </div>
 
         {/* Email Field */}
         <FormField
@@ -81,8 +112,19 @@ export function LoginForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">Login</Button>
+        <Button type="submit" className="w-full">
+          Login
+        </Button>
+
+        <p className="px-6 text-sm text-center text-gray-400">
+          Don&apos;t have an account yet?{" "}
+          <Link to="/register" className="hover:underline hover:text-black text-gray-600">
+            Register
+          </Link>
+        </p>
       </form>
     </Form>
   );
-}
+};
+
+export default LoginForm;
