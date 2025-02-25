@@ -11,6 +11,9 @@ const userValidationSchema = z.object({
   email: z.string({
     required_error: 'Please provide a valid email address',
   }),
+  photo: z.string({
+    required_error: 'Please provide your phot url',
+  }),
 
   password: z.string({
     required_error: 'A password is required for account security',

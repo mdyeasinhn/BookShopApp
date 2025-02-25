@@ -1,11 +1,13 @@
+import Banner from "@/components/home/Banner";
 
 
-const home = () => {
+const Home = () => {
     return (
         <div>
-            I am home
+            <Banner></Banner>
+            
         </div>
     );
 };
 
-export default home;
+export default Home;

@@ -62,7 +62,7 @@ const LoginForm = () => {
         toast.success("Logged in successfully!", { id: toastId, duration: 2000 });
         navigate("/");
       } else {
-        throw new Error("Access token not found in response.");
+        throw new Error(" token not found in response.");
       }
     } catch (err) {
       console.error("Login Error:", err);
@@ -75,7 +75,7 @@ const LoginForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 lg:mt-16 w-[400px] mx-auto p-6 rounded-lg shadow-xl"
+        className="space-y-6  w-[400px] mx-auto p-6 rounded-lg shadow-xl"
       >
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">Login</h2>
