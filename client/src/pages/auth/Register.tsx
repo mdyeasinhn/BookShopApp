@@ -77,7 +77,7 @@ export function RegisterForm() {
               <FormMessage />
             </FormItem>
           )}
-        />\
+        />
         {/* Photo Field */}
 
         <FormField

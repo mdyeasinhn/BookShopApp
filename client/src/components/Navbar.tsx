@@ -13,7 +13,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="fixed w-full flex justify-center z-10 ">
+    <div className="fixed w-full flex justify-center z-10  ">
         <Menubar>
           <MenubarMenu>
            <Link to="/"> <MenubarTrigger>Home</MenubarTrigger></Link>
