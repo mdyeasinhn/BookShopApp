@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
-import logo from '../assets/images/circular-wheat-with-opened-book-and-pen-writer-inside-free-vector.jpg'
+import logo from '../../assets/images/circular-wheat-with-opened-book-and-pen-writer-inside-free-vector.jpg'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed w-full bg-white z-10 shadow-sm">
+    <div className="fixed w-full  bg-white z-10 shadow-sm">
       <div className="py-4 border-b-[1px]">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
@@ -14,8 +14,8 @@ const Navbar = () => {
             <img
               src={logo}
               alt="logo"
-              width="100"
-              height="100"
+              width="80"
+              height="50"
             />
           </Link>
 

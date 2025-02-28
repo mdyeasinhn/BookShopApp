@@ -1,8 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { Book as BookIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
+// Define the Book type if you don't have the schema
 type Book = {
   _id: string;
-  image: string;
+  image?: string;
   location: string;
   author: string;
   category: string;
@@ -10,42 +18,44 @@ type Book = {
   priceRange: string;
 };
 
-type CardProps = {
-  book?: Book; // Make book optional to prevent errors on missing data
-};
+interface BookCardProps {
+  book: Book;
+}
 
-const BookCard: React.FC<CardProps> = ({ book }) => {
-  // Debugging: Check if book exists
-  console.log('Book data:', book);
-
-  // Handle loading state
-  if (!book) {
-    return <p className="text-center text-gray-500">Loading book details...</p>;
-  }
-
+export function BookCard({ book }: BookCardProps) {
   return (
-    <Link to={`/book/${book._id?.toString()}`} className="col-span-1 cursor-pointer group shadow-xl rounded-lg p-5">
-      <div className="flex flex-col gap-2 w-full">
-        {/* Image Container */}
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
-          <img
-            className="object-cover h-full w-full group-hover:scale-110 transition"
-            src={book.image}
-            alt="Book Cover"
-          />
+    <Card className="w-full h-full flex flex-col overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]">
+      <CardHeader className="space-y-1 p-4">
+        <div className="flex items-center gap-2">
+          <BookIcon className="h-5 w-5 text-primary" />
+          <Badge variant="secondary" className="bg-[#CAE9FF] text-[#1B4965]">
+            {book.category}
+          </Badge>
         </div>
+        <h3 className="font-merriweather text-lg font-semibold leading-none tracking-tight text-[#333333] line-clamp-2">
+          {book.title}
+        </h3>
+        <p className="font-open-sans text-sm text-muted-foreground">
+          by {book.author}
+        </p>
+      </CardHeader>
+      <CardContent className="p-4 pt-0 flex-grow">
+        <p className="font-merriweather text-xl font-bold text-[#1B4965]">
+          ${(book.price / 100).toFixed(2)}
+        </p>
+      </CardContent>
+      <Link to={`/book/${book._id?.toString()}`}>
+        <CardFooter className="p-4 pt-0">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="w-full bg-[#62B6CB] hover:bg-[#1B4965] text-white transition-colors duration-300">
+                View Details
+              </Button>
+            </DialogTrigger>
 
-        {/* Book Details */}
-        <div className="font-semibold text-lg">{book.location}</div>
-        <div className="font-light text-neutral-500">{book.author}</div>
-        <div className="font-light text-neutral-500">{book.category}</div>
-        <div className="font-light text-neutral-500">{book.priceRange}</div>
-        <div className="font-light text-neutral-500">
-          {book.availability ? 'Available' : 'Unavailable'}
-        </div>
-      </div>
-    </Link>
+          </Dialog>
+        </CardFooter>
+      </Link>
+    </Card>
   );
-};
-
-export default BookCard;
+}
