@@ -10,10 +10,17 @@ const bicycleManagementApi = baseApi.injectEndpoints({
       }),
    //   providesTags: ['book'],
     }),
+    getSingleBooks: builder.query({
+      query: (id) => ({
+        url: `/bicycles/${id}`,
+        method: "GET",
+      }),
+      // providesTags: ['book']
+    }),
 
  
   }),
 });
 
-export const {useGetAllBooksQuery } =
+export const {useGetAllBooksQuery, useGetSingleBooksQuery} =
   bicycleManagementApi;
