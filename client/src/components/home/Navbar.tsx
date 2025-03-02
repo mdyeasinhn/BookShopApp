@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
-import logo from '../../assets/images/circular-wheat-with-opened-book-and-pen-writer-inside-free-vector.jpg'
+import logo from '../../assets/images/logo-1.svg'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,8 +14,8 @@ const Navbar = () => {
             <img
               src={logo}
               alt="logo"
-              width="80"
-              height="50"
+              width="150"
+              height="150"
             />
           </Link>
 

@@ -1,6 +1,6 @@
 import { baseApi } from "../../api/baseApi";
 
-const bicycleManagementApi = baseApi.injectEndpoints({
+const bookManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllBooks: builder.query({
       query: (params: Record<string, unknown>) => ({
@@ -12,7 +12,7 @@ const bicycleManagementApi = baseApi.injectEndpoints({
     }),
     getSingleBooks: builder.query({
       query: (id) => ({
-        url: `/bicycles/${id}`,
+        url: `/books/${id}`,
         method: "GET",
       }),
       // providesTags: ['book']
@@ -23,4 +23,4 @@ const bicycleManagementApi = baseApi.injectEndpoints({
 });
 
 export const {useGetAllBooksQuery, useGetSingleBooksQuery} =
-  bicycleManagementApi;
+  bookManagementApi;

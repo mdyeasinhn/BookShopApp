@@ -2,10 +2,11 @@ import Container from "@/components/shared/Container";
 
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
 import { BookCard } from "./BookCard";
+import CustomButton from "@/components/ui/CustomButton";
 
 const FeaturedBooks = () => {
   const { data, isLoading, error } = useGetAllBooksQuery({});
-  
+
   // Extract books array from API response
   console.log(data)
   const books = data?.data || [];
@@ -31,6 +32,10 @@ const FeaturedBooks = () => {
         ) : (
           <p className="text-center text-gray-500 mt-4">No books available</p>
         )}
+
+        <div className="flex justify-center items-center h-screen">
+          <CustomButton text="View All"  />
+        </div>
       </Container>
     </div>
   );

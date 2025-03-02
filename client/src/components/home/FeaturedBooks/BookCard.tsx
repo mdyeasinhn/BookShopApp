@@ -1,9 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { DialogHeader } from "@/components/ui/dialog";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
 import { Book as BookIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -44,7 +42,7 @@ export function BookCard({ book }: BookCardProps) {
           ${(book.price / 100).toFixed(2)}
         </p>
       </CardContent>
-      <Link to={`/book/${book._id?.toString()}`}>
+      <Link to={`/books/${book._id?.toString()}`}>
         <CardFooter className="p-4 pt-0">
           <Dialog>
             <DialogTrigger asChild>
