@@ -6,6 +6,7 @@ import LoginForm from "@/pages/auth/Login";
 import Home from "@/pages/home/Home";
 import BookDeatails from "@/components/home/FeaturedBooks/BookDeatails";
 import Books from "@/pages/books/Books";
+import DashboardLayout from "@/components/layout/DashBoardLayout";
 
 
 
@@ -39,6 +40,15 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path:'/dashboard',
+        element : <DashboardLayout/>,
+        children:[
+            {
+                
+            }
+        ]
+    }
 ]);
 
 export default router;
