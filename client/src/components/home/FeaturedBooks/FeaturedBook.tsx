@@ -3,6 +3,7 @@ import Container from "@/components/shared/Container";
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
 import { BookCard } from "./BookCard";
 import CustomButton from "@/components/ui/CustomButton";
+import { Link } from "react-router-dom";
 
 const FeaturedBooks = () => {
   const { data, isLoading, error } = useGetAllBooksQuery({});
@@ -33,9 +34,9 @@ const FeaturedBooks = () => {
           <p className="text-center text-gray-500 mt-4">No books available</p>
         )}
 
-        <div className="flex justify-center items-center h-screen">
+        <Link to='/books' className="flex justify-center items-center  mt-5">
           <CustomButton text="View All"  />
-        </div>
+        </Link>
       </Container>
     </div>
   );
