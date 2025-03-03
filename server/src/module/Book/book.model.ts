@@ -9,6 +9,10 @@ const bookSchema = new Schema({
     type: String,
     required: [true, 'The author name is required. Please provide the author of the book.'],
   },
+  image: {
+    type: String,
+    required: [true, 'Book image is required. Please provide the book image.'],
+  },
   price: {
     type: Number,
     required: [true, 'The book price is required. Don’t forget to add it.'],

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import logo from '../../assets/images/logo-1.svg'
+import { Button } from "../ui/button";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,6 +19,12 @@ const Navbar = () => {
               height="150"
             />
           </Link>
+
+          <div>
+            <Link to='/books'>
+            <Button className="bg-red-400">Books</Button>
+            </Link>
+          </div>
 
           {/* Dropdown Menu */}
           <div className="relative">
