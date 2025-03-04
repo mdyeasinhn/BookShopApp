@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const BookDetails = () => {
     const { id } = useParams();
-    const { data, isLoading } = useGetSingleBooksQuery(id);
+    const { data } = useGetSingleBooksQuery(id);
     const book = data?.data;
     console.log(data)
     return (
@@ -12,7 +12,7 @@ const BookDetails = () => {
             {/* Book Cover */}
             <div className="w-1/3 relative">
                 <img
-                    src="https://via.placeholder.com/200"
+                    src={book?.image}
                     alt="Book Cover"
                     className="w-full h-auto rounded-lg shadow-lg"
                 />

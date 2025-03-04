@@ -1,11 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCreateBookMutation } from "@/redux/features/books/bookManagementApi";
+import { IBook } from "@/types/book.types";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const CreateBook = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm<IBook>();
+    const [createBook] = useCreateBookMutation();
+    const onSubmit = async(data: any) => {
+        const bookData = {
+            ...data,
+            price: Number(data.price),
+            quantity: Number(data.quantity),
+            inStock: true,
+          };
+          console.log(bookData)
 
-    const onSubmit = (data: any) => {
-        console.log("Form Data:", data);
+          try{
+            const res = await createBook(bookData).unwrap();
+            console.log(res)
+            if (res.success) {
+                toast.success(res.message);
+              } else {
+                toast.error("Something went wrong!");
+              }
+          } catch (error) {
+            console.log(error)
+          }
     };
 
     return (

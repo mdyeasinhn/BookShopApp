@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 type Book = {
   _id: string;
   image?: string;
+  title: string;
+  price : number;
   location: string;
   author: string;
   category: string;
@@ -39,7 +41,7 @@ export function BookCard({ book }: BookCardProps) {
       </CardHeader>
       <CardContent className="p-4 pt-0 flex-grow">
         <p className="font-merriweather text-xl font-bold text-[#1B4965]">
-          ${(book.price / 100).toFixed(2)}
+        ${book?.price}
         </p>
       </CardContent>
       <Link to={`/books/${book._id?.toString()}`}>
