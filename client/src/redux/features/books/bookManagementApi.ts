@@ -18,9 +18,15 @@ const bookManagementApi = baseApi.injectEndpoints({
       // providesTags: ['book']
     }),
 
- 
+    createBook: builder.mutation({
+      query: (bookInfo) => ({
+        url: "/books",
+        method: "POST",
+        body: bookInfo,
+      }),
+    }),
   }),
 });
 
-export const {useGetAllBooksQuery, useGetSingleBooksQuery} =
+export const {useGetAllBooksQuery, useGetSingleBooksQuery, useCreateBookMutation} =
   bookManagementApi;
