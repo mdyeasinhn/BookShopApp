@@ -7,6 +7,7 @@ import Home from "@/pages/home/Home";
 import BookDeatails from "@/components/home/FeaturedBooks/BookDeatails";
 import Books from "@/pages/books/Books";
 import DashboardLayout from "@/components/layout/DashBoardLayout";
+import CreateBook from "@/pages/dashboard/CreateBook";
 
 
 
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
         element : <DashboardLayout/>,
         children:[
             {
-                
+                path: 'add-book',
+                element: <CreateBook/>
             }
         ]
     }
