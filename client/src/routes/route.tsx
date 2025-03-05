@@ -8,6 +8,7 @@ import BookDeatails from "@/components/home/FeaturedBooks/BookDeatails";
 import Books from "@/pages/books/Books";
 import DashboardLayout from "@/components/layout/DashBoardLayout";
 import CreateBook from "@/pages/dashboard/CreateBook";
+import AllBooks from "@/pages/dashboard/AllBooks";
 
 
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: 'add-book',
                 element: <CreateBook/>
+            },
+            {
+                path: 'all-books',
+                element: <AllBooks/>
             }
         ]
     }
