@@ -1,7 +1,12 @@
+import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
 import BookDataRow from "./BookRow"
+import { IBook } from "@/types/book.types";
 
 
 const AllBooks = () => {
+    const { data  } = useGetAllBooksQuery({});
+    const books = data?.data || [];
+
     return (
         <>
             <div className='container mx-auto px-4 sm:px-8'>
@@ -69,7 +74,9 @@ const AllBooks = () => {
                                     </tr>
                                 </thead>
                                 <tbody >{/* Room row data */}
-                                    <BookDataRow  />
+                                   {books.map((book:IBook) => (
+                                     <BookDataRow book={book} key={book._id}/>
+                                   ))}
                                 </tbody>
                             </table>
                         </div>
