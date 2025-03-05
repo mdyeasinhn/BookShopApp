@@ -50,7 +50,7 @@ import {
                   </DialogTitle>
                   <div className='mt-2'>
                     <p className='text-sm text-gray-500 text-center'>
-                      This will permanently delete the room details.
+                      This will permanently delete the book details.
                     </p>
                   </div>
                   <hr className='mt-8' />

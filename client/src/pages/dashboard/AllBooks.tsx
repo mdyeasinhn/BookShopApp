@@ -1,90 +1,55 @@
-import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
-import BookDataRow from "./BookRow"
+import { useDeleteBookMutation, useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
+import BookDataRow from "./BookRow";
 import { IBook } from "@/types/book.types";
-
+import { toast } from "sonner";
 
 const AllBooks = () => {
-    const { data  } = useGetAllBooksQuery({});
+    const { data } = useGetAllBooksQuery({});
     const books = data?.data || [];
 
-    return (
-        <>
-            <div className='container mx-auto px-4 sm:px-8'>
-                <div className='py-8'>
-                    <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
-                        <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
-                            <table className='min-w-full leading-normal'>
-                                <thead>
-                                    <tr>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Image
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Title
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Author
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Category
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Price
 
+    const [deleteBook] = useDeleteBookMutation();
+
+    // Delete
+    const handleDelete = async (id?: string) => {
+        try {
+            const res = await deleteBook(id).unwrap();
+            toast.success(res?.message);
+        } catch (error) {
+            console.error("Failed to delete book:", error);
+            toast.error("Failed to delete book. Please try again.");
+        }
+    };
+
+    return (
+        <div className="container mx-auto px-4 sm:px-8">
+            <div className="py-8">
+                <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                    <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <table className="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    {["Image", "Title", "Author", "Category", "Price", "Quantity", "In stock", "Delete", "Update"].map((header) => (
+                                        <th key={header} className="px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">
+                                            {header}
                                         </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Quantity
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            In stock
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Delete
-                                        </th>
-                                        <th
-                                            scope='col'
-                                            className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                        >
-                                            Update
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody >{/* Room row data */}
-                                   {books.map((book:IBook) => (
-                                     <BookDataRow book={book} key={book._id}/>
-                                   ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {books.map((book: IBook) =>
+                                    book._id ? (
+                                        <BookDataRow book={book} key={book._id} handleDelete={handleDelete} />
+                                    ) : null
+                                )}
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
-export default AllBooks
+export default AllBooks;
