@@ -1,3 +1,4 @@
+import { categories } from "../Bookcategory/Categories"
 
 const UpdateBookForm = () => {
     return (
@@ -18,20 +19,20 @@ const UpdateBookForm = () => {
                         />
                     </div>
                     <div className='space-y-1 text-sm'>
-                        <label htmlFor='title' className='block text-gray-600'>
-                            Title
+                        <label htmlFor='author' className='block text-gray-600'>
+                            Author
                         </label>
                         <input
                             className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
-                            name='title'
-                            id='title'
+                            name='author'
+                            id='author'
                             type='text'
-                            placeholder='Title'
+                            placeholder='Author'
                             required
                         />
                     </div>
 
-                    {/* <div className='space-y-1 text-sm'>
+                    <div className='space-y-1 text-sm'>
             <label htmlFor='category' className='block text-gray-600'>
               Category
             </label>
@@ -41,12 +42,12 @@ const UpdateBookForm = () => {
               name='category'
             >
               {categories.map(category => (
-                <option value={category.label} key={category.label}>
-                  {category.label}
+                <option value={category} key={category}>
+                  {category}
                 </option>
               ))}
             </select>
-          </div> */}
+          </div>
 
 
                     <div className='space-y-1 text-sm'>
@@ -79,48 +80,20 @@ const UpdateBookForm = () => {
 
                         <div className='space-y-1 text-sm'>
                             <label htmlFor='guest' className='block text-gray-600'>
-                                Total guest
+                                Quantity
                             </label>
                             <input
                                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
-                                name='total_guest'
-                                id='guest'
+                                name='quantity'
+                                id='quantity'
                                 type='number'
-                                placeholder='Total guest'
+                                placeholder='Quantity'
                                 required
                             />
                         </div>
                     </div>
 
-                    <div className='flex justify-between gap-2'>
-                        <div className='space-y-1 text-sm'>
-                            <label htmlFor='bedrooms' className='block text-gray-600'>
-                                Bedrooms
-                            </label>
-                            <input
-                                className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
-                                name='bedrooms'
-                                id='bedrooms'
-                                type='number'
-                                placeholder='Bedrooms'
-                                required
-                            />
-                        </div>
-
-                        <div className='space-y-1 text-sm'>
-                            <label htmlFor='bathrooms' className='block text-gray-600'>
-                                Bathrooms
-                            </label>
-                            <input
-                                className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
-                                name='bathrooms'
-                                id='bathrooms'
-                                type='number'
-                                placeholder='Bathrooms'
-                                required
-                            />
-                        </div>
-                    </div>
+                   
 
                     <div className='space-y-1 text-sm'>
                         <label htmlFor='description' className='block text-gray-600'>
