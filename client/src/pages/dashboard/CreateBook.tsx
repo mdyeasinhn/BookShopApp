@@ -8,26 +8,26 @@ import { toast } from "sonner";
 const CreateBook = () => {
     const { register, handleSubmit } = useForm<IBook>();
     const [createBook] = useCreateBookMutation();
-    const onSubmit = async(data: any) => {
+    const onSubmit = async (data: any) => {
         const bookData = {
             ...data,
             price: Number(data.price),
             quantity: Number(data.quantity),
             inStock: true,
-          };
-          console.log(bookData)
+        };
+        console.log(bookData)
 
-          try{
+        try {
             const res = await createBook(bookData).unwrap();
             console.log(res)
             if (res.success) {
                 toast.success(res.message);
-              } else {
+            } else {
                 toast.error("Something went wrong!");
-              }
-          } catch (error) {
+            }
+        } catch (error) {
             console.log(error)
-          }
+        }
     };
 
     return (
@@ -49,16 +49,15 @@ const CreateBook = () => {
                         <div className='space-y-1 text-sm'>
                             <label htmlFor='category' className='block text-gray-600'>Category</label>
                             <select
-                                         required
-                                         className='w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md'
-                                         name='category'
-                                       >
-                                         {categories.map(category => (
-                                           <option value={category} key={category}>
-                                             {category}
-                                           </option>
-                                         ))}
-                                       </select>
+                                {...register("category", { required: true })}  // ✅ Fix: Register the category field
+                                className='w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md'
+                            >
+                                {categories.map((category) => (
+                                    <option value={category} key={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className='space-y-1 text-sm'>

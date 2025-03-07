@@ -8,7 +8,7 @@ import {
 import { Fragment } from 'react'
 import UpdateBookForm from './updateBookFrom'
 
-const UpdateBookModal = ({ setIsEditModalOpen, isOpen }) => {
+const UpdateBookModal = ({ setIsEditModalOpen, isOpen, handleUpdate, book}) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -48,7 +48,7 @@ const UpdateBookModal = ({ setIsEditModalOpen, isOpen }) => {
                 </DialogTitle>
                 <div className='mt-2 w-full'>
                   {/* Update room form */}
-                  <UpdateBookForm/>
+                  <UpdateBookForm book={book} handleUpdate={handleUpdate}/>
                   </div>
                 <hr className='mt-8 ' />
                 <div className='mt-2 '>

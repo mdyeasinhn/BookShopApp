@@ -6,9 +6,10 @@ import { IBook } from "@/types/book.types";
 interface BookDataRowProps {
     book: IBook;
     handleDelete: (id: string) => void;
+    handleUpdate: (id: string) => void;
 }
 
-const BookDataRow: React.FC<BookDataRowProps> = ({ book, handleDelete }) => {
+const BookDataRow: React.FC<BookDataRowProps> = ({ book, handleDelete, handleUpdate }) => {
     // Update Modal
     const [isEditOpen, setIsEditModalOpen] = useState<boolean>(false);
     // Delete Modal
@@ -88,6 +89,7 @@ const BookDataRow: React.FC<BookDataRowProps> = ({ book, handleDelete }) => {
                     book={book}
                     isOpen={isEditOpen}
                     setIsEditModalOpen={setIsEditModalOpen}
+                    handleUpdate={handleUpdate}
                 />
             </td>
         </tr>

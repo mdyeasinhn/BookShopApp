@@ -26,7 +26,7 @@ const bookManagementApi = baseApi.injectEndpoints({
     updateBook: builder.mutation({
       query: (args) => ({
         url: `/books/${args.id}`,
-        method: 'PATCH',
+        method: 'PUT',
         body:args.data
       }),
     }),

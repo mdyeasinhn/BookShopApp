@@ -1,4 +1,4 @@
-import { useDeleteBookMutation, useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
+import { useDeleteBookMutation, useGetAllBooksQuery, useUpdateBookMutation } from "@/redux/features/books/bookManagementApi";
 import BookDataRow from "./BookRow";
 import { IBook } from "@/types/book.types";
 import { toast } from "sonner";
@@ -9,7 +9,18 @@ const AllBooks = () => {
 
 
     const [deleteBook] = useDeleteBookMutation();
-
+    const [updateBook] = useUpdateBookMutation();
+    const handleUpdate = async (id: string, updatedData: Partial<IBook>) => {
+        try {
+            const res = await updateBook({ id, ...updatedData }).unwrap();
+            toast.success(res?.message );
+            console.log(res)
+        } catch (error) {
+            console.error("Failed to update book:", error);
+            toast.error("Failed to update book. Please try again.");
+        }
+    };
+    
     // Delete
     const handleDelete = async (id?: string) => {
         try {
@@ -39,7 +50,7 @@ const AllBooks = () => {
                             <tbody>
                                 {books.map((book: IBook) =>
                                     book._id ? (
-                                        <BookDataRow book={book} key={book._id} handleDelete={handleDelete} />
+                                        <BookDataRow book={book} key={book._id} handleDelete={handleDelete} handleUpdate={handleUpdate} />
                                     ) : null
                                 )}
 
