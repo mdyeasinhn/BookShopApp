@@ -17,7 +17,7 @@ userRoutes.get('/:userId', UserControllers.getSingleUser)
 userRoutes.put('/:userId', UserControllers.updateUser)
 userRoutes.delete('/:userId', UserControllers.deleteUser)
 userRoutes.get('/', UserControllers.getUsers)
-
+userRoutes.get('/profile/:email', UserControllers.retrieveUserProfile)
 // Admin routes
 userRoutes.patch('/:userId/block', auth("admin"), UserControllers.blockUser);
 

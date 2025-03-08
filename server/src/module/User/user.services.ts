@@ -46,6 +46,12 @@ const blockUser = async (userId: string) => {
   return user
 }
 
+const retrieveUserProfile  = async (email: string) => {
+  const result = await User.findOne({email})
+  return result;
+}
+
+
 
 export const userServices = {
   createUser,
@@ -53,5 +59,6 @@ export const userServices = {
   getSingleUser,
   updateUser,
   deleteUser,
-  blockUser
+  blockUser,
+  retrieveUserProfile
 }

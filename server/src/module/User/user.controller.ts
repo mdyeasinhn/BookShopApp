@@ -71,6 +71,16 @@ const blockUser = catchAsync(async (req, res) => {
     message: 'User blocked successfully',
   })
 })
+const retrieveUserProfile = catchAsync(async (req, res) => {
+  const {email} = req.params
+  
+  const result = await userServices.retrieveUserProfile(email)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'User profile retrieved successfully',
+    data: result,
+  })
+})
 
 export const UserControllers = {
   createUser,
@@ -78,5 +88,6 @@ export const UserControllers = {
   getSingleUser,
   updateUser,
   deleteUser,
-  blockUser
+  blockUser,
+  retrieveUserProfile
 }
