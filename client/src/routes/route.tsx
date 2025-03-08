@@ -10,6 +10,7 @@ import DashboardLayout from "@/components/layout/DashBoardLayout";
 import CreateBook from "@/pages/Admin/CreateBook";
 import AllBooks from "@/pages/Admin/AllBooks";
 import ManageUsers from "@/pages/Admin/MangeUsers";
+import Profile from "@/pages/profile/Profile";
 
 
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
             {
                 path: 'manage-users',
                 element: <ManageUsers/>
+            },
+            {
+                path: 'profile',
+                element: <Profile/>
             }
         ]
     }

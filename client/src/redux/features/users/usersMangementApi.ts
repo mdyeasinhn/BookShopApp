@@ -8,10 +8,16 @@ const usersMangementApi = baseApi.injectEndpoints({
                 method: "GET",
                 params, 
               }),
-        })
+        }),
+        getUserByEmail: builder.query({
+            query: (email) => ({
+              url: `/users/profile/${email}`,
+              method: "GET",
+            }),
+          }),
     })
 })
 
 
 
-export const {useGetAllUsersQuery} = usersMangementApi
+export const {useGetAllUsersQuery, useGetUserByEmailQuery} = usersMangementApi
