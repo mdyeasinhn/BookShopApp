@@ -9,11 +9,11 @@ interface UpdateBookFormProps {
 }
 
 const UpdateBookForm: React.FC<UpdateBookFormProps> = ({ book, handleUpdate }) => {
-    const { register, handleSubmit, reset } = useForm<IBook>();  // ❌ Removed defaultValues
+    const { register, handleSubmit, reset } = useForm<IBook>();  
 
     useEffect(() => {
         if (book) {
-            reset(book);  // ✅ Ensures form updates when book changes
+            reset(book);  
         }
     }, [book, reset]);
 

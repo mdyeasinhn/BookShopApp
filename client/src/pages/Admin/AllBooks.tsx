@@ -2,9 +2,10 @@ import { useDeleteBookMutation, useGetAllBooksQuery, useUpdateBookMutation } fro
 import BookDataRow from "./BookRow";
 import { IBook } from "@/types/book.types";
 import { toast } from "sonner";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const AllBooks = () => {
-    const { data } = useGetAllBooksQuery({});
+    const { data , isLoading, refetch} = useGetAllBooksQuery({});
     const books = data?.data || [];
 
 
@@ -12,8 +13,11 @@ const AllBooks = () => {
     const [updateBook] = useUpdateBookMutation();
     const handleUpdate = async (id: string, updatedData: Partial<IBook>) => {
         try {
-            const res = await updateBook({ id, ...updatedData }).unwrap();
+            console.log(updatedData)
+            const res = await updateBook({ id, data: updatedData }).unwrap();
+
             toast.success(res?.message );
+            refetch()
             console.log(res)
         } catch (error) {
             console.error("Failed to update book:", error);
@@ -26,12 +30,14 @@ const AllBooks = () => {
         try {
             const res = await deleteBook(id).unwrap();
             toast.success(res?.message);
+            refetch()
         } catch (error) {
             console.error("Failed to delete book:", error);
             toast.error("Failed to delete book. Please try again.");
         }
     };
-
+   // Loading spinner
+   if (isLoading) return <LoadingSpinner />
     return (
         <div className="container mx-auto px-4 sm:px-8">
             <div className="py-8">
