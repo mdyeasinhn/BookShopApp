@@ -51,7 +51,7 @@ const updateBook = async (req: Request, res: Response) => {
 
     const bookId = req.params.bookId;
     const body = req.body;
-
+console.log(body)
 
     const result = await bookService.updateBook(bookId, body);
     // Check if result is null or undefined

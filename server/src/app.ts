@@ -19,7 +19,7 @@ app.use('/api', router);
 app.get("/", (req: Request, res: Response) => {
   res.send({
     status: true,
-    message: "Blog server is Live",
+    message: "BookShop server is Live",
   });
 });
 

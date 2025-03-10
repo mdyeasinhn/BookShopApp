@@ -8,7 +8,7 @@ class QueryBuilder<T> {
     this.query = query
   }
 
-  search(searchableFields: string[]) {
+search(searchableFields: string[]) {
     const search = this.query?.search
     if (search) {
       this.modelQuery = this.modelQuery.find({
@@ -39,7 +39,7 @@ class QueryBuilder<T> {
     // Handle specific filter logic for author ID
     if (queryObj.filter) {
       const filterValue = queryObj.filter
-      queryObj['author'] = filterValue // Map 'filter' to the 'author' field
+      queryObj['category'] = filterValue // Map 'filter' to the '' field
       delete queryObj.filter
     }
 

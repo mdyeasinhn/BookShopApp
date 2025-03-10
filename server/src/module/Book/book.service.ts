@@ -11,12 +11,12 @@ const createBook = async (payload: IBook): Promise<IBook> => {
 
 
 const getBooks = async (query: Record<string, unknown>) => {
-    const searchableFields = ['title', 'author'];
+    const searchableFields = ['title', 'author',];
     const books = new QueryBuilder(Book.find(), query)
         .search(searchableFields)
         .filter()
         .paginate()
-        .sort()
+        .sort() 
         .select()
 
     const result = await books.modelQuery

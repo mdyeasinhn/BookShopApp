@@ -14,9 +14,9 @@ const orderSchema = new Schema(
             },
             immutable: true,
         },
-        product: {
+        book: {
             type: Schema.Types.ObjectId,
-            ref: 'Product',
+            ref: 'book',
             required: true,
         },
         quantity: {
