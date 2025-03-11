@@ -25,37 +25,49 @@ interface BookCardProps {
 export function BookCard({ book }: BookCardProps) {
   return (
     <Card className="w-full h-full flex flex-col overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px]">
-      <CardHeader className="space-y-1 p-4">
-        <div className="flex items-center gap-2">
-          <BookIcon className="h-5 w-5 text-primary" />
-          <Badge variant="secondary" className="bg-[#CAE9FF] text-[#1B4965]">
-            {book.category}
-          </Badge>
-        </div>
-        <h3 className="font-merriweather text-lg font-semibold leading-none tracking-tight text-[#333333] line-clamp-2">
-          {book.title}
-        </h3>
-        <p className="font-open-sans text-sm text-muted-foreground">
-          by {book.author}
-        </p>
-      </CardHeader>
-      <CardContent className="p-4 pt-0 flex-grow">
-        <p className="font-merriweather text-xl font-bold text-[#1B4965]">
-        ${book?.price}
-        </p>
-      </CardContent>
-      <Link to={`/books/${book._id?.toString()}`}>
-        <CardFooter className="p-4 pt-0">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="w-full bg-[#62B6CB] hover:bg-[#1B4965] text-white transition-colors duration-300">
-                View Details
-              </Button>
-            </DialogTrigger>
+    {/* Image Section */}
+    <div className="w-full h-48 overflow-hidden flex justify-center items-center bg-gray-100">
+  <img 
+    src={book.image} 
+    alt={book.title} 
+    className="w-full h-full object-contain" 
+  />
+</div>
 
-          </Dialog>
-        </CardFooter>
-      </Link>
-    </Card>
+  
+    <CardHeader className="space-y-1 p-4">
+      <div className="flex items-center gap-2">
+        <BookIcon className="h-5 w-5 text-primary" />
+        <Badge variant="secondary" className="bg-[#CAE9FF] text-[#1B4965]">
+          {book.category}
+        </Badge>
+      </div>
+      <h3 className="font-merriweather text-lg font-semibold leading-none tracking-tight text-[#333333] line-clamp-2">
+        {book.title}
+      </h3>
+      <p className="font-open-sans text-sm text-muted-foreground">
+        by {book.author}
+      </p>
+    </CardHeader>
+  
+    <CardContent className="p-4 pt-0 flex-grow">
+      <p className="font-merriweather text-xl font-bold text-[#1B4965]">
+        ${book?.price}
+      </p>
+    </CardContent>
+  
+    <Link to={`/books/${book._id?.toString()}`}>
+      <CardFooter className="p-4 pt-0">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="w-full bg-[#62B6CB] hover:bg-[#1B4965] text-white transition-colors duration-300">
+              View Details
+            </Button>
+          </DialogTrigger>
+        </Dialog>
+      </CardFooter>
+    </Link>
+  </Card>
+  
   );
 }

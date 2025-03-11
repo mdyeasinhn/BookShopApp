@@ -1,5 +1,6 @@
 import { BookCard } from "@/components/home/FeaturedBooks/BookCard";
 import { categories } from "@/components/shared/Bookcategory/Categories";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -40,7 +41,7 @@ const Books = () => {
     refetch();
   };
 
-  if (isLoading) return <p className="text-center text-xl">Loading books...</p>;
+  if (isLoading) return <LoadingSpinner/>
   if (error) return <p className="text-center text-red-500">Error fetching books</p>;
 
   return (

@@ -22,7 +22,7 @@ const Navbar = () => {
 
           <div>
             <Link to='/books'>
-            <Button className="bg-red-400">Books</Button>
+            <Button className="bg-red-400 ">Books</Button>
             </Link>
           </div>
 
