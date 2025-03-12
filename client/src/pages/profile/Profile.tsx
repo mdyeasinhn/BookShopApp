@@ -8,6 +8,7 @@ import { useState } from 'react'
 const Profile = () => {
     const user = useAppSelector(selectCurrentUser);
     const { data: userData , isLoading} = useGetUserByEmailQuery(user?.email);
+    console.log(userData)
 
   const [isEditOpen, setIsEditModalOpen] = useState(false);
   // const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,7 @@ const Profile = () => {
           <a href='#' className='relative block'>
             <img
               alt='profile'
-              src={userData?.data?.image}
+              src={userData?.data?.photo}
               className='mx-auto object-cover rounded-full h-24 w-24  border-2 border-white '
             />
           </a>
