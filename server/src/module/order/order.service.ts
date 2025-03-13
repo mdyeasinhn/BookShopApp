@@ -1,14 +1,18 @@
+import mongoose from "mongoose";
 import Book from "../Book/book.model";
 import { IUser } from "../User/user.interface";
 import User from "../User/user.model";
 import { IOrder } from "./order.interface";
 import Order from "./order.model";
+import { orderUtils } from "./order.utils";
 
 
-const createOrder = async (payload: IOrder, user: IUser): Promise<IOrder> => {
+const createOrder = async (payload: IOrder, user: IUser, client_ip:string): Promise<IOrder> => {
+  const session = await mongoose.startSession()
+  try{
     const { book, quantity } = payload;
 
-    const bookData = await Book.findById(book);
+    const bookData = await Book.findById(book).session(session);
 
     if (!bookData) {
         throw new Error("Book not found")
@@ -19,16 +23,32 @@ const createOrder = async (payload: IOrder, user: IUser): Promise<IOrder> => {
     }
 
     const totalPrice = Number(quantity * bookData.price)
-    const currentUser = await User.findOne({ email: user.email })
+    const currentUser = await User.findOne({ email: user.email }).session(
+      session
+    )
 
     const buyer = currentUser?._id?.toString();
-    bookData.quantity -= quantity
-    bookData.inStock = bookData.quantity > 0
-    await bookData.save()
+       // Decrease stock but only if enough is available
+       const updatedProduct = await Book.findOneAndUpdate(
+        { _id: book, quantity: { $gte: quantity } }, // Ensures enough stock
+        { $inc: { quantity: -quantity } },
+        { new: true, session }
+      )
+      if (!updatedProduct) {
+        throw new Error('Stock update failed, possibly due to insufficient stock')
+      }
+  
+  
+
+      const [order] = await Order.create([{ ...payload, totalPrice, buyer }], {
+        session,
+      })
+    // bookData.quantity -= quantity
+    // bookData.inStock = bookData.quantity > 0
+    // await bookData.save()
 
 
      // Create the order inside the transaction
-     const [order] = await Order.create([{ ...payload, totalPrice, buyer }])
 
     // payment integration
     const shurjopayPayload = {
@@ -36,49 +56,73 @@ const createOrder = async (payload: IOrder, user: IUser): Promise<IOrder> => {
       order_id: order._id,
       currency: "BDT",
       customer_name: user.name,
-      customer_address: user.address,
-      customer_email: user.email,
-      customer_phone: user.phone,
-      customer_city: user.city,
-      client_ip,
+      customer_address: payload.address,
+      customer_email: currentUser?.email,
+      customer_phone: String(payload.contact),
+      customer_city: payload.address,
+       client_ip,
     };
-    return order             
+
+    const payment = await orderUtils.makePaymentAsync(shurjopayPayload);
+    if (payment?.transactionStatus) {
+      await Order.findByIdAndUpdate(order._id, {
+        transaction: {
+          id: payment.sp_order_id,
+          transactionStatus: payment.transactionStatus,
+        },
+      }).session(session)
+    }
+    
+    await session.commitTransaction()
+    session.endSession()    
+    return {order , payment  } 
+  }catch(error){
+     // Rollback transaction if something goes wrong
+     await session.abortTransaction()
+     session.endSession()
+     throw error
+  }     
 }
 
-const revenueCalculate = async (): Promise<{ totalRevenue: number }> => {
-    const result = await Order.aggregate([
+const verifyPayment = async (order_id: string) => {
+  const verifiedPayment = await orderUtils.verifyPaymentAsync(order_id)
+
+  if (verifiedPayment.length) {
+    await Order.findOneAndUpdate(
       {
-        $lookup: {
-          from: 'books', 
-          localField: 'product',
-          foreignField: '_id',
-          as: 'productDetails',
-        },
+        'transaction.id': order_id,
       },
       {
-        $unwind: '$productDetails',
-      },
-      {
-        $group: {
-          _id: null,
-          totalRevenue: {
-            $sum: { $multiply: ['$quantity', '$productDetails.price'] },
-          },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          totalRevenue: 1,
-        },
-      },
-    ])
-  
-    return result[0] || { totalRevenue: 0 } 
+        'transaction.bank_status': verifiedPayment[0].bank_status,
+        'transaction.sp_code': verifiedPayment[0].sp_code,
+        'transaction.sp_message': verifiedPayment[0].sp_message,
+        'transaction.transactionStatus': verifiedPayment[0].transaction_status,
+        'transaction.method': verifiedPayment[0].method,
+        'transaction.date_time': verifiedPayment[0].date_time,
+        status:
+          verifiedPayment[0].bank_status == 'Success'
+            ? 'Paid'
+            : verifiedPayment[0].bank_status == 'Failed'
+              ? 'Pending'
+              : verifiedPayment[0].bank_status == 'Cancel'
+                ? 'Cancelled'
+                : '',
+      }
+    )
   }
-  
+
+  // console.log(verifiedPayment);
+
+  return verifiedPayment
+}
+
+const getAllOrders = async () => {
+  const data = await Order.find();
+  return data;
+};
 
 export const orderService = {
     createOrder,
-    revenueCalculate,
+     getAllOrders,
+     verifyPayment
 }
