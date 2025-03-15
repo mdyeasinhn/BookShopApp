@@ -8,12 +8,14 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import logo from '../../../assets/images/logo-1.svg'
 import { useDispatch } from 'react-redux'
-import { useAppSelector } from '@/redux/hooks'
+import {  useAppSelector } from '@/redux/hooks'
 import { useGetUserByEmailQuery } from '@/redux/features/users/usersMangementApi'
-import { selectCurrentUser } from '@/redux/features/auth/authSlice'
+import { logout, selectCurrentUser } from '@/redux/features/auth/authSlice'
 import AdminMenu from './menu/AdminMenu'
 import UserMenu from './menu/UserMenu'
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
     const [isActive, setActive] = useState(false);
     const [toggle, setToggle] = useState(true);
     // const dispatch = useDispatch();
@@ -33,6 +35,12 @@ const Sidebar = () => {
     console.log(e.target.checked);
     setToggle(e.target.checked)
   }
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <>
       {/* Small Screen Navbar */}
@@ -124,7 +132,7 @@ const Sidebar = () => {
             <span className='mx-4 font-medium'>Profile</span>
           </NavLink>
           <button
-           
+           onClick={handleLogout}
             className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
           >
             <GrLogout className='w-5 h-5' />
