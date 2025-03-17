@@ -15,6 +15,13 @@ const usersMangementApi = baseApi.injectEndpoints({
               method: "GET",
             }),
           }),
+          blockUser: builder.mutation({
+            query: (id) => ({
+              url: `/users/block/${id}`,
+              method: "PATCH",
+            }),
+            invalidatesTags: ["user"],
+          }),
     })
 })
 
