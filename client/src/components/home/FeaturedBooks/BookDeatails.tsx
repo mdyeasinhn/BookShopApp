@@ -1,12 +1,28 @@
+import CheckoutModal from "@/components/shared/modal/CheckoutModal";
 import { useGetSingleBooksQuery } from "@/redux/features/books/bookManagementApi";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
+interface Book {
+    image: string;
+    title: string;
+    author: string;
+    price: number;
+    description: string;
+    quantity: number;
+}
 
-const BookDetails = () => {
-    const { id } = useParams();
+const BookDetails: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     const { data } = useGetSingleBooksQuery(id);
-    const book = data?.data;
-    console.log(data)
+    const book: Book | undefined = data?.data;
+    console.log(data);
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
     return (
         <div className="flex gap-6 bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto mt-16">
             {/* Book Cover */}
@@ -23,8 +39,6 @@ const BookDetails = () => {
             <div className="w-2/3 flex flex-col">
                 <h2 className="text-2xl font-bold">{book?.title}</h2>
                 <p className="text-gray-500">Author: <span className="font-semibold">{book?.author}</span></p>
-             
-
                 <p className="text-red-500 text-xl font-semibold mt-2">${book?.price}</p>
                 <p className="text-gray-600 mt-2">{book?.description}</p>
 
@@ -36,13 +50,12 @@ const BookDetails = () => {
                 </div>
 
                 <div className="mt-4 flex gap-4">
-                    <button className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600">Add to Cart</button>
+                    <button onClick={() => setIsOpen(true)} className="bg-red-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-red-600">Buy now</button>
                 </div>
-
-                <div className="mt-4 text-gray-500 text-sm">
-                    <p><strong>Categories:</strong> Action & Adventure, Activity Books, Cultural</p>
-                    <p><strong>Tags:</strong> Books, Fiction, Romance - Contemporary</p>
-                </div>
+                
+                {book && (
+                    <CheckoutModal isOpen={isOpen} closeModal={closeModal} bookInfo={book} />
+                )}
             </div>
         </div>
     );
