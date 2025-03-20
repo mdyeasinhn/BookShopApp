@@ -10,8 +10,8 @@ const Profile = () => {
     const { data: userData , isLoading} = useGetUserByEmailQuery(user?.email);
     console.log(userData)
 
-  const [isEditOpen, setIsEditModalOpen] = useState(false);
-  // const [isOpen, setIsOpen] = useState(false);
+  
+
 
  
   //   loading spinner

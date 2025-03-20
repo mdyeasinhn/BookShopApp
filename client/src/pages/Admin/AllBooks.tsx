@@ -47,7 +47,7 @@ const AllBooks = () => {
                             <thead>
                                 <tr>
                                     {["Image", "Title", "Author", "Category", "Price", "Quantity", "In stock", "Delete", "Update"].map((header) => (
-                                        <th key={header} className="px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">
+                                        <th key={header} className="px-5 py-3 bg-gray-50 border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal">
                                             {header}
                                         </th>
                                     ))}

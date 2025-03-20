@@ -75,7 +75,7 @@ const LoginForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6  w-[400px] mx-auto p-6 rounded-lg shadow-xl"
+        className="space-y-6  w-[400px] mx-auto p-6  shadow-xl rounded-xl"
       >
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">Login</h2>
@@ -112,7 +112,7 @@ const LoginForm = () => {
           )}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full rounded-xl bg-rose-500 hover:bg-rose-400">
           Login
         </Button>
 

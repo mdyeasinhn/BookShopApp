@@ -1,11 +1,12 @@
-import Banner from "@/components/home/Banner/Banner";
+
+import MainBanner from "@/components/home/Banner/MainBanner";
 import FeaturedBooks from "@/components/home/FeaturedBooks/FeaturedBook";
 
 
 const Home = () => {
     return (
         <div>
-            <Banner></Banner>
+            <MainBanner></MainBanner>
             <FeaturedBooks/>
         </div>
     );

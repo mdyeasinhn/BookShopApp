@@ -58,7 +58,7 @@ export function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-[400px] mx-auto p-6 border rounded-lg shadow">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-[400px] mx-auto p-6 border rounded-xl shadow-xl">
         <div className="space-y-1">
           <h2 className="text-2xl font-bold ">Create an Acount</h2>
           <h2 className="">Enter your email below to create your account</h2>
@@ -123,7 +123,7 @@ export function RegisterForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">Create Account</Button>
+        <Button type="submit" className="w-full rounded-xl bg-rose-500 hover:bg-rose-400">Create Account</Button>
 
         <p className="px-6 text-sm text-center text-gray-400">
           Don&apos;t have an account yet?{" "}

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const CreateBook = () => {
-    const { register, handleSubmit } = useForm<IBook>();
+    const { register, handleSubmit, reset } = useForm<IBook>();
     const [createBook] = useCreateBookMutation();
     const onSubmit = async (data: any) => {
         const bookData = {
@@ -22,6 +22,7 @@ const CreateBook = () => {
             console.log(res)
             if (res.success) {
                 toast.success(res.message);
+                reset()
             } else {
                 toast.error("Something went wrong!");
             }

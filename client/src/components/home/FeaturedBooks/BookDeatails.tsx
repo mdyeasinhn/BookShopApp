@@ -29,15 +29,14 @@ const BookDetails = () => {
                 <p className="text-gray-600 mt-2">{book?.description}</p>
 
                 <div className="mt-4">
-                    <span className="text-gray-600">Already sold: <strong>24/{book?.quantity}</strong></span>
+                    <span className="text-gray-600">Already sold: <strong>0/{book?.quantity}</strong></span>
                     <div className="w-full bg-gray-200 h-2 mt-1 rounded-full">
-                        <div className="bg-red-500 h-2 w-1/4 rounded-full"></div>
+                        <div className="bg-red-500 h-2 w-4/4 rounded-full"></div>
                     </div>
                 </div>
 
                 <div className="mt-4 flex gap-4">
                     <button className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600">Add to Cart</button>
-                    <button className="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-100">❤️ Wishlist</button>
                 </div>
 
                 <div className="mt-4 text-gray-500 text-sm">
