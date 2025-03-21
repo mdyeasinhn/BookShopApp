@@ -1,3 +1,6 @@
+import { selectCurrentUser } from '@/redux/features/auth/authSlice';
+import { useCreateOrderMutation } from '@/redux/features/order/order';
+import { useAppSelector } from '@/redux/hooks';
 import {
   Dialog,
   Transition,
@@ -5,9 +8,12 @@ import {
   DialogPanel,
   DialogTitle,
 } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface BookInfo {
+  _id: string;
   image: string;
   title: string;
   price: number;
@@ -20,11 +26,68 @@ interface CheckoutModalProps {
 }
 
 const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookInfo }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+  const user = useAppSelector(selectCurrentUser);
+  const [createOrder] = useCreateOrderMutation();
 
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.max(1, parseInt(e.target.value) || 1);
-    setQuantity(value);
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      quantity: 1,
+      address: '',
+      contact: '',
+    },
+  });
+
+  const quantity = watch('quantity');
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = async(data: any) => {
+    const orderData = {
+      email: user?.email,
+      bookId: bookInfo._id, // Assuming bookInfo has an 'id' field
+      quantity: data.quantity,
+      totalPrice: (bookInfo.price * data.quantity).toFixed(2),
+      address: data.address,
+      contact: data.contact,
+    };
+    try {
+      const response = await createOrder(orderData).unwrap();
+      if (response?.status) {
+        toast.success(response?.message);
+        console.log("Order Created:", response);
+
+        // Log the entire response data to verify structure
+        console.log("Response Data:", response.data);
+
+        // Correctly access checkout_url
+        const checkoutUrl = response?.data?.payment?.checkout_url;
+        console.log("Checkout URL:", checkoutUrl);
+        console.log("test", response?.data?.payment?.checkout_url);
+
+        if (checkoutUrl) {
+          // Redirect to the checkout URL
+          window.location.href = checkoutUrl;
+        } else {
+          console.error("Checkout URL is undefined!");
+          toast.error("Failed to generate checkout URL. Please try again.");
+        }
+
+        reset();
+      } else {
+        toast.error(response?.message);
+        console.error("Order Creation Failed:", response);
+      }
+    } catch (error) {
+      console.error("Order Creation Failed:", error);
+    }
+  
+    console.log(orderData);
   };
 
   return (
@@ -74,29 +137,58 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
 
                 <hr className='mt-4' />
 
-                {/* Quantity Selector */}
-                <div className='mt-4'>
-                  <label className='block text-gray-700 font-semibold mb-2'>Quantity:</label>
-                  <input
-                    type='number'
-                    min='1'
-                    value={quantity}
-                    onChange={handleQuantityChange}
-                    className='w-full p-2 border rounded-lg text-center'
-                  />
-                </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
 
-                {/* Total Price */}
-                <div className='mt-4 text-lg font-semibold'>
-                  Total Price: ${ (bookInfo.price * quantity).toFixed(2) }
-                </div>
+                  <div className='flex gap-2'>
+                  {/* Quantity Selector */}
 
-                {/* Checkout Button */}
-                <button
-                  className='w-full bg-blue-600 text-white py-2 px-4 mt-4 rounded-lg hover:bg-blue-700 transition'
-                >
-                  Confirm Purchase
-                </button>
+                  <div className='mt-4'>
+                    <label className='block text-gray-700 font-semibold mb-2'>Quantity:</label>
+                    <input
+                      type='number'
+                      min='1'
+                      {...register('quantity', { valueAsNumber: true, min: 1 })}
+                      className='w-full p-2 text-gray-800 border border-gray-300 focus:outline-rose-500 rounded-md'
+                    />
+                    {errors.quantity && <p className='text-red-500 text-sm'>Quantity must be at least 1</p>}
+                  </div>
+                   {/* Contact Info */}
+                   <div className='mt-4'>
+                    <label className='block text-gray-700 font-semibold mb-2'>Contact Info:</label>
+                    <input
+                      type='number'
+                      {...register('contact', { required: 'Contact info is required' })}
+                      className='w-full p-2 text-gray-800 border border-gray-300 focus:outline-rose-500 rounded-md'
+                    />
+                    {errors.contact && <p className='text-red-500 text-sm'>{errors.contact.message}</p>}
+                  </div>
+
+                  </div>
+
+                    {/* Address */}
+                    <div className='mt-4'>
+                    <label className='block text-gray-700 font-semibold mb-2'>Address:</label>
+                    <input
+                      type='text'
+                      {...register('address', { required: 'Address is required' })}
+                      className='w-full p-2 border rounded-lg'
+                    />
+                    {errors.address && <p className='text-red-500 text-sm'>{errors.address.message}</p>}
+                  </div>
+
+                  {/* Total Price */}
+                  <div className='mt-4 text-lg font-semibold'>
+                    Total Price: ${(bookInfo.price * quantity).toFixed(2)}
+                  </div>
+
+                  {/* Checkout Button */}
+                  <button
+                    type='submit'
+                    className='w-full bg-blue-600 text-white py-2 px-4 mt-4 rounded-lg hover:bg-blue-700 transition'
+                  >
+                    Confirm Purchase
+                  </button>
+                </form>
               </DialogPanel>
             </TransitionChild>
           </div>

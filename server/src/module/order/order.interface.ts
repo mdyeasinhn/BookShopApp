@@ -5,7 +5,7 @@ export interface IOrder {
   book: Types.ObjectId;
   quantity: number;
   totalPrice: number;
-  status?: string;
+  status: "Pending" | "Paid" | "Shipped" | "Completed" | "Cancelled";
   address?: string;
   contact?: number;
   transaction: {
@@ -17,4 +17,6 @@ export interface IOrder {
     method: string;
     date_time: string;
   };
+  createdAt?: Date;
+  updatedAt?: Date;
 }
