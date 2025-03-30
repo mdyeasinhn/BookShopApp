@@ -50,7 +50,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
   const onSubmit = async(data: any) => {
     const orderData = {
       email: user?.email,
-      bookId: bookInfo._id, // Assuming bookInfo has an 'id' field
+      book: bookInfo._id, // Assuming bookInfo has an 'id' field
       quantity: data.quantity,
       totalPrice: (bookInfo.price * data.quantity).toFixed(2),
       address: data.address,
@@ -58,7 +58,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
     };
     try {
       const response = await createOrder(orderData).unwrap();
-      if (response?.status) {
+      if (response?.success) {
         toast.success(response?.message);
         console.log("Order Created:", response);
 

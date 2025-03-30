@@ -7,50 +7,41 @@ import Order from "./order.model";
 import { orderUtils } from "./order.utils";
 
 
-const createOrder = async (payload: IOrder, user: IUser, client_ip:string): Promise<IOrder> => {
-  const session = await mongoose.startSession()
-  try{
+const createOrder = async (payload: IOrder, user: IUser, client_ip: string): Promise<IOrder> => {
+  const session = await mongoose.startSession();
+  session.startTransaction(); // ✅ Start transaction explicitly
+  
+  try {
     const { book, quantity } = payload;
 
+    //console.log("book->", payload)
     const bookData = await Book.findById(book).session(session);
-
     if (!bookData) {
-        throw new Error("Book not found")
+      throw new Error("Book not found");
     }
 
     if (bookData.quantity < quantity) {
-        throw new Error('Insufficient stock')
+      throw new Error("Insufficient stock");
     }
 
-    const totalPrice = Number(quantity * bookData.price)
-    const currentUser = await User.findOne({ email: user.email }).session(
-      session
-    )
+    const totalPrice = Number(quantity * bookData.price);
+    const currentUser = await User.findOne({ email: user.email }).session(session);
 
     const buyer = currentUser?._id?.toString();
-       // Decrease stock but only if enough is available
-       const updatedProduct = await Book.findOneAndUpdate(
-        { _id: book, quantity: { $gte: quantity } }, // Ensures enough stock
-        { $inc: { quantity: -quantity } },
-        { new: true, session }
-      )
-      if (!updatedProduct) {
-        throw new Error('Stock update failed, possibly due to insufficient stock')
-      }
-  
-  
 
-      const [order] = await Order.create([{ ...payload, totalPrice, buyer }], {
-        session,
-      })
-    // bookData.quantity -= quantity
-    // bookData.inStock = bookData.quantity > 0
-    // await bookData.save()
+    const updatedProduct = await Book.findOneAndUpdate(
+      { _id: book, quantity: { $gte: quantity } },
+      { $inc: { quantity: -quantity } },
+      { new: true, session }
+    );
 
+    if (!updatedProduct) {
+      throw new Error("Stock update failed, possibly due to insufficient stock");
+    }
 
-     // Create the order inside the transaction
+    const [order] = await Order.create([{ ...payload, totalPrice, buyer }], { session });
 
-    // payment integration
+    // Payment Integration
     const shurjopayPayload = {
       amount: totalPrice,
       order_id: order._id,
@@ -60,29 +51,35 @@ const createOrder = async (payload: IOrder, user: IUser, client_ip:string): Prom
       customer_email: currentUser?.email,
       customer_phone: String(payload.contact),
       customer_city: payload.address,
-       client_ip,
+      client_ip,
     };
 
     const payment = await orderUtils.makePaymentAsync(shurjopayPayload);
-    if (payment?.transactionStatus) {
-      await Order.findByIdAndUpdate(order._id, {
-        transaction: {
-          id: payment.sp_order_id,
-          transactionStatus: payment.transactionStatus,
-        },
-      }).session(session)
-    }
     
-    await session.commitTransaction()
-    session.endSession()    
-    return {order , payment  } 
-  }catch(error){
-     // Rollback transaction if something goes wrong
-     await session.abortTransaction()
-     session.endSession()
-     throw error
-  }     
-}
+    if (payment?.transactionStatus) {
+      await Order.findByIdAndUpdate(
+        order._id,
+        {
+          transaction: {
+            id: payment.sp_order_id,
+            transactionStatus: payment.transactionStatus,
+          },
+        },
+        { session }
+      );
+    }
+
+    await session.commitTransaction(); // ✅ Commit transaction
+    session.endSession();
+    
+    return { order, payment };
+  } catch (error) {
+    await session.abortTransaction(); // ✅ Ensure abort only if transaction started
+    session.endSession();
+    throw error;
+  }
+};
+
 
 const verifyPayment = async (order_id: string) => {
   const verifiedPayment = await orderUtils.verifyPaymentAsync(order_id)

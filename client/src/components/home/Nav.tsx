@@ -30,6 +30,16 @@ const Nav = () => {
                     className={({ isActive }) =>
                         isActive ? "text-rose-500 font-bold" : "font-bold text-black"
                     }
+                    to="/contact"
+                >
+                    Contact
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? "text-rose-500 font-bold" : "font-bold text-black"
+                    }
                     to="/dashboard"
                 >
                    Dashboard

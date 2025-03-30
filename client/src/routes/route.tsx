@@ -11,6 +11,8 @@ import CreateBook from "@/pages/Admin/CreateBook";
 import AllBooks from "@/pages/Admin/AllBooks";
 import ManageUsers from "@/pages/Admin/MangeUsers";
 import Profile from "@/pages/profile/Profile";
+import Contact from "@/pages/contact/contact";
+
 
 
 
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path : '/books/:id',
                 element : <BookDeatails/>
+            },
+            {
+                path : '/contact',
+                element : <Contact/>
             }
         ]
     },
