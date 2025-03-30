@@ -15,10 +15,10 @@ const usersMangementApi = baseApi.injectEndpoints({
               method: "GET",
             }),
           }),
-          blockUser: builder.mutation({
+          deleteUser: builder.mutation({
             query: (id) => ({
-              url: `/users/block/${id}`,
-              method: "PATCH",
+              url: `/users/${id}`,
+              method: "DELETE",
             }),
             invalidatesTags: ["user"],
           }),
@@ -27,4 +27,4 @@ const usersMangementApi = baseApi.injectEndpoints({
 
 
 
-export const {useGetAllUsersQuery, useGetUserByEmailQuery} = usersMangementApi
+export const {useGetAllUsersQuery, useGetUserByEmailQuery, useDeleteUserMutation} = usersMangementApi
