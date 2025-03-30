@@ -1,14 +1,26 @@
-import { useGetAllUsersQuery } from "@/redux/features/users/usersMangementApi";
+import { useDeleteUserMutation, useGetAllUsersQuery } from "@/redux/features/users/usersMangementApi";
 import UserDataRow from "./UserDataRow";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import { toast } from "sonner";
 
 const ManageUsers = () => {
   const { data: response, refetch, isLoading } = useGetAllUsersQuery(undefined);
   const users = response?.data || [];
-
+const [deleteUser] = useDeleteUserMutation();
   if(isLoading){
     return <LoadingSpinner/>
   }
+      const handleDelete = async (id?: string) => {
+          try {
+              const res = await deleteUser(id).unwrap();
+              toast.success(res?.message);
+              refetch()
+          } catch (error) {
+              console.error("Failed to delete user:", error);
+              toast.error("Failed to user book. Please try again.");
+          }
+      };
+      
   return (
     <>
       <div className="container mx-auto px-4 sm:px-8">
@@ -47,7 +59,7 @@ const ManageUsers = () => {
                 <tbody>
                   {/* User data table row */}
                   {users.map((user) => (
-                    <UserDataRow key={user.id} user={user} refetch={refetch} />
+                    <UserDataRow key={user.id} user={user} refetch={refetch} handleDelete={handleDelete}/>
                   ))}
                 </tbody>
               </table>

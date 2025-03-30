@@ -1,5 +1,6 @@
+import { Delete } from "lucide-react"
 
-const UserDataRow = ({ user, refetch }) => {
+const UserDataRow = ({ user, refetch, handleDelete }) => {
     console.log('user',user)
   return (
     <tr>
@@ -24,14 +25,9 @@ const UserDataRow = ({ user, refetch }) => {
 </td>
 
 
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <span className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
-          <span
-            aria-hidden='true'
-            className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-          ></span>
-          <span className='relative'>Update Role</span>
-        </span>
+      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-500'>
+       <Delete onClick={() => handleDelete(user._id)}/>
+       
         {/* Update User Modal */}
       </td>
     </tr>
