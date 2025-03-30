@@ -1,9 +1,10 @@
 import { FaUserCog } from 'react-icons/fa'
 import MenuItem from './MenuItem'
-import { MdHomeWork, MdOutlineManageHistory } from 'react-icons/md'
+import { MdHomeWork } from 'react-icons/md'
 const AdminMenu = ({ closeSidebar }) => {
     return (
         <>
+        
             <MenuItem
                 closeSidebar={closeSidebar}
                 icon={MdHomeWork}
