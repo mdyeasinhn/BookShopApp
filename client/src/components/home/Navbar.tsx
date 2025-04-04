@@ -5,12 +5,13 @@ import logo from '../../assets/images/logo-1.svg'
 import { useAppSelector } from "@/redux/hooks";
 import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import { useGetUserByEmailQuery } from "@/redux/features/users/usersMangementApi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const user = useAppSelector(selectCurrentUser);
-  console.log("user", user)
+  const { data: userData } = useGetUserByEmailQuery(user?.email);
   return (
     <div className="fixed w-full  bg-white z-10 shadow-sm">
       <div className="py-4 border-b-[1px]">
@@ -58,46 +59,51 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Dropdown Menu */}
+          {/* Right Side User Menu or Login */}
           <div className="relative">
-            <div
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-4 border-[1px] border-neutral-200 flex items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
-            >
-              <AiOutlineMenu />
-            </div>
-
-            {isOpen && (
-              <div className="absolute right-0 top-12 w-40 bg-white rounded-xl shadow-md text-sm">
-                <div className="flex flex-col cursor-pointer">
-                  {user && (
-                    <Link
-                      to="/dashboard"
-                      className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                    >
-                      Dashboard
-                    </Link>
-                  )}
-                  {user ? (
-                    <button
-                    onClick={() => dispatch(logout())}
-                      className="px-4 py-3 text-left hover:bg-neutral-100 transition font-semibold"
-                    >
-                      Logout
-                    </button>
-                  ) : (
-                    <Link
-                      to="/login"
-                      className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                    >
-                      Login
-                    </Link>
-                  )}
+            {user ? (
+              <>
+                <div
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-1 border-[1px] border-neutral-200 rounded-full cursor-pointer hover:shadow-md transition"
+                >
+                  <img
+                    src={userData?.data?.photo || "https://i.pravatar.cc/40"} // fallback avatar
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
                 </div>
-              </div>
-            )}
 
+                {isOpen && (
+                  <div className="absolute right-0 top-12 w-40 bg-white rounded-xl shadow-md text-sm">
+                    <div className="flex flex-col cursor-pointer">
+                      <Link
+                        to="/dashboard"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={() => dispatch(logout())}
+                        className="px-4 py-3 text-left hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="px-6 py-2 bg-rose-500 text-white rounded-full font-semibold hover:bg-rose-600 transition"
+              >
+                Login
+              </Link>
+            )}
           </div>
+
+
         </div>
       </div>
     </div>
