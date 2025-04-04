@@ -35,7 +35,7 @@ const FeaturedBooks = () => {
         )}
 
         <Link to='/books' className="flex justify-center items-center  mt-5">
-          <CustomButton text="View All"  />
+          <CustomButton   >View all</CustomButton>
         </Link>
       </Container>
     </div>

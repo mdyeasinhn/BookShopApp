@@ -1,28 +1,27 @@
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import React from "react";
 
 interface ButtonProps {
-  text: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
   className?: string;
 }
 
-const CustomButton: React.FC<ButtonProps> = ({ text, className = "" }) => {
+const CustomButton: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  type = "button",
+  className = "",
+}) => {
   return (
-    <motion.div
-    whileHover={{ x: [0, -3, 3, -3, 3, 0] }} // Shake effect on hover
-    whileTap={{ x: [0, -3, 3, -3, 3, 0] }} // Shake effect on tap
-    transition={{ duration: 0.8  }} // Smooth transition
-  >
     <button
-      className={`bg-red-500 text-white font-bold py-2 px-5 rounded-full flex items-center gap-2 shadow-md hover:shadow-lg transition-all ${className}`}
+      type={type}
+      onClick={onClick}
+      className={`bg-rose-500 text-white px-5 py-2 rounded-2xl font-semibold shadow-md transition duration-300 hover:bg-rose-600 hover:scale-105 active:scale-95 ${className}`}
     >
-      {text}
-     
-        <ArrowRight size={20} />
+      {children}
     </button>
-      </motion.div>
   );
 };
 
 export default CustomButton;
- 

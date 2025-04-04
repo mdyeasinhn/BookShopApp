@@ -1,4 +1,5 @@
 import CheckoutModal from "@/components/shared/modal/CheckoutModal";
+import CustomButton from "@/components/ui/CustomButton";
 import { useGetSingleBooksQuery } from "@/redux/features/books/bookManagementApi";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -50,7 +51,7 @@ const BookDetails: React.FC = () => {
                 </div>
 
                 <div className="mt-4 flex gap-4">
-                    <button onClick={() => setIsOpen(true)} className="bg-red-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-red-600">Buy now</button>
+                    <CustomButton onClick={() => setIsOpen(true)} >Buy now</CustomButton>
                 </div>
                 
                 {book && (

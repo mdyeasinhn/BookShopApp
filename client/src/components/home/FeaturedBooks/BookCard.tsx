@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import CustomButton from "@/components/ui/CustomButton";
 
 import { Link } from "react-router-dom";
 
@@ -42,9 +43,9 @@ export function BookCard({ book }: BookCardProps) {
           <div className="flex justify-between mt-4">
             <p className="font-medium">{book.category}</p>
             <Link to={`/books/${book._id?.toString()}`}>
-              <Button className="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500">
-                view
-              </Button></Link>
+              <CustomButton>
+                View
+              </CustomButton></Link>
           </div>
         </div>
       </div>
