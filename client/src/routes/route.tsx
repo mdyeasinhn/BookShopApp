@@ -12,64 +12,63 @@ import AllBooks from "@/pages/Admin/AllBooks";
 import ManageUsers from "@/pages/Admin/MangeUsers";
 import Profile from "@/pages/profile/Profile";
 import Contact from "@/pages/contact/contact";
-
-
-
-
+import PrivateRoute from "./privateRoute";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout />,
-        errorElement:<NotFoundPage/>,
-        children : [
+        errorElement: <NotFoundPage />,
+        children: [
             {
-               index: true,
-                element : <Home/>
+                index: true,
+                element: <Home />
             },
             {
-                path : '/login',
-                element : <LoginForm/>
+                path: '/login',
+                element: <LoginForm />
             },
             {
-                path : '/register',
-                element : <RegisterForm/>
+                path: '/register',
+                element: <RegisterForm />
             },
             {
-                path : '/books',
-                element : <Books/>
+                path: '/books',
+                element: <Books />
             },
             {
-                path : '/books/:id',
-                element : <BookDeatails/>
+                path: '/books/:id',
+                element: <BookDeatails />
             },
             {
-                path : '/contact',
-                element : <Contact/>
-            }
+                path: '/contact',
+                element: <Contact />
+            },
+
         ]
     },
     {
-        path:'/dashboard',
-        element : <DashboardLayout/>,
-        children:[
+        path: '/dashboard',
+        element: <DashboardLayout />,
+        children: [
             {
                 path: 'add-book',
-                element: <CreateBook/>
+                element: <PrivateRoute role="admin"><CreateBook /></PrivateRoute>
             },
             {
                 path: 'all-books',
-                element: <AllBooks/>
+                element: <PrivateRoute role="admin"><AllBooks /></PrivateRoute>
             },
             {
                 path: 'manage-users',
-                element: <ManageUsers/>
+                element: <PrivateRoute role="admin"><ManageUsers /></PrivateRoute>
             },
             {
                 path: 'profile',
-                element: <Profile/>
+                element: <Profile />
             }
+
         ]
     }
 ]);

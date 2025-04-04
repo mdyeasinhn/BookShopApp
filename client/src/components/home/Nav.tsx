@@ -1,7 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "../ui/button";
 import logo from '../../assets/images/logo-1.svg'
-import Container from "../shared/Container";
+
+
 const Nav = () => {
     const links = (
         <ul className="flex space-x-6 text-lg">
