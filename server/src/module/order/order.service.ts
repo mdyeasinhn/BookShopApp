@@ -7,10 +7,14 @@ import Order from "./order.model";
 import { orderUtils } from "./order.utils";
 
 
-const createOrder = async (payload: IOrder, user: IUser, client_ip: string): Promise<IOrder> => {
+const createOrder = async (user: IUser, payload: IOrder, client_ip: string): Promise<IOrder> => {
+  //console.log("Payload:", payload);
+  // console.log("User:", user);
+  // console.log("Client IP:", client_ip);
+
   const session = await mongoose.startSession();
-  session.startTransaction(); // ✅ Start transaction explicitly
-  
+  session.startTransaction(); //  Start transaction explicitly
+
   try {
     const { book, quantity } = payload;
 
@@ -55,7 +59,7 @@ const createOrder = async (payload: IOrder, user: IUser, client_ip: string): Pro
     };
 
     const payment = await orderUtils.makePaymentAsync(shurjopayPayload);
-    
+
     if (payment?.transactionStatus) {
       await Order.findByIdAndUpdate(
         order._id,
@@ -69,12 +73,12 @@ const createOrder = async (payload: IOrder, user: IUser, client_ip: string): Pro
       );
     }
 
-    await session.commitTransaction(); // ✅ Commit transaction
+    await session.commitTransaction();
     session.endSession();
-    
+
     return { order, payment };
   } catch (error) {
-    await session.abortTransaction(); // ✅ Ensure abort only if transaction started
+    await session.abortTransaction(); 
     session.endSession();
     throw error;
   }
@@ -119,7 +123,7 @@ const getAllOrders = async () => {
 };
 
 export const orderService = {
-    createOrder,
-     getAllOrders,
-     verifyPayment
+  createOrder,
+  getAllOrders,
+  verifyPayment
 }

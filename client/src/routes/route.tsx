@@ -11,7 +11,7 @@ import CreateBook from "@/pages/Admin/CreateBook";
 import AllBooks from "@/pages/Admin/AllBooks";
 import ManageUsers from "@/pages/Admin/MangeUsers";
 import Profile from "@/pages/profile/Profile";
-import Contact from "@/pages/contact/contact";
+import Contact from "../pages/contact/Contact";
 import PrivateRoute from "./privateRoute";
 
 
