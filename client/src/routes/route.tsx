@@ -13,6 +13,7 @@ import ManageUsers from "@/pages/Admin/MangeUsers";
 import Profile from "@/pages/profile/Profile";
 import Contact from "../pages/contact/Contact";
 import PrivateRoute from "./privateRoute";
+import Order from "@/pages/user/order";
 
 
 const router = createBrowserRouter([
@@ -67,8 +68,11 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <Profile />
-            }
-
+            },
+            {
+                path: 'my-orders',
+                element: <PrivateRoute role="user"><Order/></PrivateRoute>
+            },
         ]
     }
 ]);
