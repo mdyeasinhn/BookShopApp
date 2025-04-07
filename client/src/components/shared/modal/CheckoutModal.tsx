@@ -1,3 +1,4 @@
+import CustomButton from '@/components/ui/CustomButton';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useCreateOrderMutation } from '@/redux/features/order/order';
 import { useAppSelector } from '@/redux/hooks';
@@ -56,6 +57,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
       address: data.address,
       contact: data.contact,
     };
+    console.log(orderData)
     try {
       const response = await createOrder(orderData).unwrap();
       if (response?.success) {
@@ -177,17 +179,17 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
                   </div>
 
                   {/* Total Price */}
-                  <div className='mt-4 text-lg font-semibold'>
+                  <div className='mt-4 text-lg font-semibold mb-2'>
                     Total Price: ${(bookInfo.price * quantity).toFixed(2)}
                   </div>
 
                   {/* Checkout Button */}
-                  <button
+                  <CustomButton
                     type='submit'
-                    className='w-full bg-blue-600 text-white py-2 px-4 mt-4 rounded-lg hover:bg-blue-700 transition'
+                    className='w-full '
                   >
                     Confirm Purchase
-                  </button>
+                  </CustomButton>
                 </form>
               </DialogPanel>
             </TransitionChild>

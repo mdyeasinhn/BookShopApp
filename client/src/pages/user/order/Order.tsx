@@ -1,10 +1,13 @@
 import { useGetAllOrdersQuery } from "@/redux/features/order/order";
+import OrderDataRow from "../order/OrderDataRow";
+import { IOrder } from "@/types/order.types";
 
 
 const Order = () => {
     const { data } = useGetAllOrdersQuery({});
-    const orders = data?.data || [];
+    const orders: IOrder[] = data?.data || [];
     console.log(orders)
+
     return (
         <div className='container mx-auto px-4 sm:px-8'>
             <div className='py-8'>
@@ -15,36 +18,41 @@ const Order = () => {
                                 <tr>
                                     <th
                                         scope='col'
-                                        className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
                                     >
-                                        Image
-                                    </th>
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                    >
-                                        User
-                                    </th>
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                                    >
-                                        Price
+                                        Transaction Id
                                     </th>
 
                                     <th
                                         scope='col'
-                                        className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
+                                    >
+                                        Quentity
+                                    </th>
+                                    <th
+                                        scope='col'
+                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
+                                    >
+                                        Price
+                                    </th>
+                                    <th
+                                        scope='col'
+                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
+                                    >
+                                        Status
+                                    </th>
+                                    <th
+                                        scope='col'
+                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
                                     >
                                         Action
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Table Row Data */}
-                                {/* {bookings.map(booking => (
-                                    <BookingDataRow booking={booking} refetch={refetch} key={booking._id} />
-                                ))} */}
+                                {orders.map((order: IOrder) => (
+                                    <OrderDataRow order={order} key={order._id} />
+                                ))}
                             </tbody>
                         </table>
                     </div>

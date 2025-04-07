@@ -58,7 +58,7 @@ const BookDetails: React.FC = () => {
                     <CheckoutModal isOpen={isOpen} closeModal={closeModal} bookInfo={book} />
                 )}
             </div>
-        </div>
+        </div>  
     );
 };
 

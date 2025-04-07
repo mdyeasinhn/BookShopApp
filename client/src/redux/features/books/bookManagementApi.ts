@@ -15,7 +15,6 @@ const bookManagementApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-
     createBook: builder.mutation({
       query: (bookInfo) => ({
         url: "/books",

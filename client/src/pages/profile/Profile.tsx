@@ -2,7 +2,6 @@ import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useGetUserByEmailQuery } from '@/redux/features/users/usersMangementApi';
 import { useAppSelector } from '@/redux/hooks';
-import { useState } from 'react'
 
 
 const Profile = () => {

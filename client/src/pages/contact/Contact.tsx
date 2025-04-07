@@ -1,3 +1,4 @@
+import CustomButton from "@/components/ui/CustomButton";
 import { Phone } from "lucide-react";
 import { GrLocation } from "react-icons/gr";
 
@@ -89,7 +90,7 @@ const Contact: React.FC = () => {
                 <input
                     type="text"
                     placeholder="John"
-                    className="block w-full px-5 py-2.5 mt-2 text-rose-700 placeholder-rose-400 bg-white border border-rose-200 rounded-lg dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-5 py-2.5 mt-2  bg-white border border-rose-200 rounded-lg  dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
             </div>
 
@@ -100,7 +101,7 @@ const Contact: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Doe"
-                    className="block w-full px-5 py-2.5 mt-2 text-rose-700 placeholder-rose-400 bg-white border border-rose-200 rounded-lg dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-5 py-2.5 mt-2  bg-white border border-rose-200 rounded-lg dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
             </div>
         </div>
@@ -112,24 +113,24 @@ const Contact: React.FC = () => {
             <input
                 type="email"
                 placeholder="johndoe@example.com"
-                className="block w-full px-5 py-2.5 mt-2 text-rose-700 placeholder-rose-400 bg-white border border-rose-200 rounded-lg dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-5 py-2.5 mt-2  bg-white border border-rose-200 rounded-lg dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
             />
         </div>
 
         <div className="w-full mt-4">
             <label className="block mb-2 text-sm text-rose-600 dark:text-rose-200">Message</label>
             <textarea
-                className="block w-full h-32 px-5 py-2.5 mt-2 text-rose-700 placeholder-rose-400 bg-white border border-rose-200 rounded-lg md:h-56 dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full h-32 px-5 py-2.5 mt-2  bg-white border border-rose-200 rounded-lg md:h-56 dark:placeholder-rose-600 dark:bg-rose-900 dark:text-rose-300 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-400 focus:ring-rose-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Message"
             ></textarea>
         </div>
 
-        <button
+        <CustomButton
             type="submit"
-            className="w-full px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-rose-500 rounded-lg hover:bg-rose-400 focus:outline-none focus:ring focus:ring-rose-300 focus:ring-opacity-50"
+            className="w-full px-6 py-3 mt-4 "
         >
             Send message
-        </button>
+        </CustomButton>
     </form>
 </div>
 
