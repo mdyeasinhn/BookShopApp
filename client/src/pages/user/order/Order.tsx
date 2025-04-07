@@ -1,19 +1,33 @@
-
 import OrderDataRow from "../order/OrderDataRow";
 import { IOrder } from "@/types/order.types";
 import { useGetUserByEmailQuery } from "@/redux/features/users/usersMangementApi";
 import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useGetMyOrderQuery } from "@/redux/features/order/order";
+import { useDeleteOrderMutation, useGetMyOrderQuery } from "@/redux/features/order/order";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import { toast } from "sonner";
 
 const Order = () => {
+       const [deleteOrder] = useDeleteOrderMutation();
     const user = useAppSelector(selectCurrentUser);
-    const { data: userData, isLoading: userLoading } = useGetUserByEmailQuery(user?.email);
+    const { data: userData, isLoading: userLoading,  } = useGetUserByEmailQuery(user?.email);
     const email = userData?.data?.email;
 
-    const { data: ordersData, isLoading: ordersLoading } = useGetMyOrderQuery(email);
+    const { data: ordersData, isLoading: ordersLoading ,refetch} = useGetMyOrderQuery(email);
     const orders: IOrder[] = ordersData?.data || [];
+
+
+      // Delete
+        const handleDelete = async (id?: string) => {
+            try {
+                const res = await deleteOrder(id).unwrap();
+                toast.success(res?.message);
+                refetch()
+            } catch (error) {
+                console.error("Failed to delete order:", error);
+                toast.error("Failed to delete order. Please try again.");
+            }
+        };
 
     console.log(orders);
    // Loading spinner
@@ -45,7 +59,7 @@ const Order = () => {
                             </thead>
                             <tbody>
                                 {orders.map((order: IOrder) => (
-                                    <OrderDataRow order={order} key={order._id} />
+                                    <OrderDataRow order={order} key={order._id} handleDelete={handleDelete}/>
                                 ))}
                             </tbody>
                         </table>

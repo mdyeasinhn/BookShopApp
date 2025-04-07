@@ -1,10 +1,11 @@
-import { IOrder } from "@/types/order"; // Adjust the path as needed
+import { IOrder } from "../../../types/order.types"; // Adjust the path as needed
 
 interface OrderDataRowProps {
     order: IOrder;
+    handleDelete: (_id: string) => void;
 }
 
-const OrderDataRow = ({ order }: OrderDataRowProps) => {
+const OrderDataRow = ({ order, handleDelete }: OrderDataRowProps) => {
     return (
         <tr>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -24,6 +25,7 @@ const OrderDataRow = ({ order }: OrderDataRowProps) => {
             </td>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <button
+                onClick={() => handleDelete(order._id)}
                     className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-red-900 leading-tight"
                 >
                     <span
