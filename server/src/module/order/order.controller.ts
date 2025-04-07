@@ -4,9 +4,8 @@ import sendResponse from "../../utils/sendResponse";
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 
-const createOrder = catchAsync(async (req, res) => {
+const createOrder = catchAsync(async (req:Request, res: Response) => {
   const user = req?.user;
-  console.log(user)
   const order = await orderService.createOrder(user, req.body, req.ip!);
 
   sendResponse(res, {

@@ -20,6 +20,20 @@ const orderApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    getMyOrder: builder.query({
+      query: (email) => ({
+        url: `/orders/my-order/${email}`,
+        method: "GET",
+      }), 
+    }),
+
+    deleteOrder: builder.mutation({
+      query: (id) => ({
+        url: `/orders/delete-order/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 export const {
