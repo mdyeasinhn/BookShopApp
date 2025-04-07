@@ -36,8 +36,21 @@ const getAllOrders = catchAsync(async (req, res) => {
   });
 });
 
+const myOrder = catchAsync(async (req, res) => {
+  const {email} = req.params
+  const result = await orderService.myOrder(email);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'My Order is getting successfully',
+    data: result
+  })
+})
+
+
+
 export const orderController = {
   createOrder,
   getAllOrders,
   verifyPayment,
+  myOrder,
 }

@@ -130,5 +130,6 @@ const myOrder = async (email: string) => {
 export const orderService = {
   createOrder,
   getAllOrders,
-  verifyPayment
+  verifyPayment,
+  myOrder,
 }
