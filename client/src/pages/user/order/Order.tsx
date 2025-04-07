@@ -1,13 +1,23 @@
-import { useGetAllOrdersQuery } from "@/redux/features/order/order";
+
 import OrderDataRow from "../order/OrderDataRow";
 import { IOrder } from "@/types/order.types";
-
+import { useGetUserByEmailQuery } from "@/redux/features/users/usersMangementApi";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useGetMyOrderQuery } from "@/redux/features/order/order";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 const Order = () => {
-    const { data } = useGetAllOrdersQuery({});
-    const orders: IOrder[] = data?.data || [];
-    console.log(orders)
+    const user = useAppSelector(selectCurrentUser);
+    const { data: userData, isLoading: userLoading } = useGetUserByEmailQuery(user?.email);
+    const email = userData?.data?.email;
 
+    const { data: ordersData, isLoading: ordersLoading } = useGetMyOrderQuery(email);
+    const orders: IOrder[] = ordersData?.data || [];
+
+    console.log(orders);
+   // Loading spinner
+   if (ordersLoading) return <LoadingSpinner />
     return (
         <div className='container mx-auto px-4 sm:px-8'>
             <div className='py-8'>
@@ -16,35 +26,19 @@ const Order = () => {
                         <table className='min-w-full leading-normal'>
                             <thead>
                                 <tr>
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
-                                    >
+                                    <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
                                         Transaction Id
                                     </th>
-
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
-                                    >
-                                        Quentity
+                                    <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
+                                        Quantity
                                     </th>
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
-                                    >
+                                    <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
                                         Price
                                     </th>
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
-                                    >
+                                    <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
                                         Status
                                     </th>
-                                    <th
-                                        scope='col'
-                                        className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'
-                                    >
+                                    <th className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800 text-left text-sm uppercase font-normal'>
                                         Action
                                     </th>
                                 </tr>

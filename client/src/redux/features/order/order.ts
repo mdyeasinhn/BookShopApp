@@ -40,4 +40,6 @@ export const {
   useCreateOrderMutation,
   useGetAllOrdersQuery,
   useVerifyOrderQuery,
+  useGetMyOrderQuery,
+  useDeleteOrderMutation
 } = orderApi;
