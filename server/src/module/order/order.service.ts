@@ -78,7 +78,7 @@ const createOrder = async (user: IUser, payload: IOrder, client_ip: string): Pro
 
     return { order, payment };
   } catch (error) {
-    await session.abortTransaction(); 
+    await session.abortTransaction();
     session.endSession();
     throw error;
   }
@@ -126,10 +126,16 @@ const getAllOrders = async () => {
 const myOrder = async (email: string) => {
   const result = await Order.find({ email })
   return result
-}
+};
+
+const deleteOrder = async (id: string) => {
+  const result = await Order.findByIdAndDelete(id)
+  return result
+};
 export const orderService = {
   createOrder,
   getAllOrders,
   verifyPayment,
   myOrder,
+  deleteOrder,
 }

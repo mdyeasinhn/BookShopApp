@@ -44,6 +44,17 @@ const myOrder = catchAsync(async (req, res) => {
     message: 'My Order is getting successfully',
     data: result
   })
+});
+
+
+const deleteOrder = catchAsync(async(req, res) => {
+  const orderId = req.params.orderId
+  await orderService.deleteOrder(orderId)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: "Order deleted succesfully",
+    data: {}
+  })
 })
 
 
@@ -53,4 +64,5 @@ export const orderController = {
   getAllOrders,
   verifyPayment,
   myOrder,
+  deleteOrder
 }
