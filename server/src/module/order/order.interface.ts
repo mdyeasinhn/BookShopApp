@@ -5,7 +5,7 @@ export interface IOrder {
   book: Types.ObjectId;
   quantity: number;
   totalPrice: number;
-  status: "Pending" | "Paid" | "Shipped" | "Completed" | "Cancelled";
+  status: "Pending" | "Paid" | "Completed" | "Cancelled";
   address?: string;
   contact?: number;
   transaction: {
