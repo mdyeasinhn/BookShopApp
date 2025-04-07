@@ -122,6 +122,11 @@ const getAllOrders = async () => {
   return data;
 };
 
+
+const myOrder = async (email: string) => {
+  const result = await Order.find({ email })
+  return result
+}
 export const orderService = {
   createOrder,
   getAllOrders,
