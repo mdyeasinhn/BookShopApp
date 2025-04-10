@@ -14,6 +14,8 @@ import Profile from "@/pages/profile/Profile";
 import Contact from "../pages/contact/Contact";
 import PrivateRoute from "./privateRoute";
 import Order from "@/pages/user/order/Order";
+import About from "@/pages/AboutUs/About";
+import Statistics from "@/components/dashboard/Statistics/Statistics";
 
 
 
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
                 element: <BookDeatails />
             },
             {
+                path: '/about',
+                element: <About />
+            },
+            {
                 path: '/contact',
                 element: <Contact />
             },
@@ -54,6 +60,11 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: <DashboardLayout />,
         children: [
+            {
+                index: true,
+                element:<Statistics />
+            },
+          
             {
                 path: 'add-book',
                 element: <PrivateRoute role="admin"><CreateBook /></PrivateRoute>
@@ -72,7 +83,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'my-orders',
-                element: <PrivateRoute role="user"><Order/></PrivateRoute>
+                element: <PrivateRoute role="user"><Order /></PrivateRoute>
             },
         ]
     }

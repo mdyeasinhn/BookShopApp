@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { GrLogout } from 'react-icons/gr'
 import { FcSettings } from 'react-icons/fc'
-
+import { BsGraphUp } from 'react-icons/bs'
 import { AiOutlineBars } from 'react-icons/ai'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -12,6 +12,7 @@ import { useGetUserByEmailQuery } from '@/redux/features/users/usersMangementApi
 import { logout, selectCurrentUser } from '@/redux/features/auth/authSlice'
 import AdminMenu from './menu/AdminMenu'
 import UserMenu from './menu/UserMenu'
+import MenuItem from './menu/MenuItem'
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -107,7 +108,7 @@ const Sidebar = () => {
             <nav>
               {/* Statistics */}
           
-
+              <MenuItem address='/dashboard' label='Statistics' icon={BsGraphUp} closeSidebar={handleToggle} />
 
               {userData?.data?.role === "admin" && <AdminMenu closeSidebar={handleToggle} />}
               {userData?.data?.role === "user" && <UserMenu closeSidebar={handleToggle} />}
