@@ -20,8 +20,9 @@ const createBook = async (req: Request, res: Response) => {
 
 // ----> Get All Books controller <----
 const getBooks = async (req: Request, res: Response) => {
+    console.log(req.query)
 
-    const result = await bookService.getBooks();
+    const result = await bookService.getBooks(req.query);
 
     sendResponse(res, {
         success: true,
@@ -51,7 +52,7 @@ const updateBook = async (req: Request, res: Response) => {
 
     const bookId = req.params.bookId;
     const body = req.body;
-console.log(body)
+// c
 
     const result = await bookService.updateBook(bookId, body);
     // Check if result is null or undefined
@@ -63,7 +64,7 @@ console.log(body)
             data: null,
         })
     }
-
+    
     sendResponse(res, {
         success: true,
         statusCode: StatusCodes.OK,

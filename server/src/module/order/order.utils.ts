@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Shurjopay, { VerificationResponse } from "shurjopay";
 import config from "../../app/config";
 
@@ -13,7 +14,7 @@ shurjopay.config(
 
 const makePaymentAsync = async (
   paymentPayload: any
-): Promise<PaymentResponse> => {
+) => {
   return new Promise((resolve, reject) => {
     shurjopay.makePayment(
       paymentPayload,
@@ -21,8 +22,8 @@ const makePaymentAsync = async (
       (error) => reject(error)
     );
   });
-
 }
+
 const verifyPaymentAsync = (
   order_id: string
 ): Promise<VerificationResponse[]> => {

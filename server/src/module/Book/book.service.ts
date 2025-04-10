@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import QueryBuilder from "../../builder/queryBuilder";
 import { IBook } from "./book.interface";
 import Book from "./book.model";
@@ -21,7 +22,7 @@ const getBooks = async (query: Record<string, unknown>) => {
 
     const result = await books.modelQuery
     return result;
-}
+};
 
 const getSpecificProduct = async (id: string) => {
     const result = await Book.findById(id);
