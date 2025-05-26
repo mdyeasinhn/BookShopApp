@@ -2,6 +2,7 @@ import { BookCard } from "@/components/home/FeaturedBooks/BookCard";
 import { categories } from "@/components/shared/Bookcategory/Categories";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
+import { IBook } from "@/types/book.types";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -44,7 +45,7 @@ const Books = () => {
     refetch();
   };
 
-  if (isLoading) return <LoadingSpinner  />;
+  if (isLoading) return <LoadingSpinner  smallHeight={false}/>;
   if (error) return <p className="text-center text-red-500">Error fetching books</p>;
 
   return (
@@ -104,7 +105,8 @@ const Books = () => {
       <div className="container mx-auto px-4 mt-6">
         {data?.data?.length ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.data.map((book) => (
+            {data.data.map((book :IBook) => (
+              //@ts-ignore
               <BookCard key={book._id} book={book} />
             ))}
           </div>

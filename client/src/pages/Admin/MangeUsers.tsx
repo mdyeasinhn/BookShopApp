@@ -2,25 +2,28 @@ import { useDeleteUserMutation, useGetAllUsersQuery } from "@/redux/features/use
 import UserDataRow from "./UserDataRow";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { toast } from "sonner";
+import { IUser } from "@/types/user.type";
 
 const ManageUsers = () => {
+  //@ts-ignore
   const { data: response, refetch, isLoading } = useGetAllUsersQuery(undefined);
   const users = response?.data || [];
-const [deleteUser] = useDeleteUserMutation();
-  if(isLoading){
-    return <LoadingSpinner/>
+
+  const [deleteUser] = useDeleteUserMutation();
+  if (isLoading) {
+    return <LoadingSpinner smallHeight={false} />
   }
-      const handleDelete = async (id?: string) => {
-          try {
-              const res = await deleteUser(id).unwrap();
-              toast.success(res?.message);
-              refetch()
-          } catch (error) {
-              console.error("Failed to delete user:", error);
-              toast.error("Failed to user book. Please try again.");
-          }
-      };
-      
+  const handleDelete = async (id?: string) => {
+    try {
+      const res = await deleteUser(id).unwrap();
+      toast.success(res?.message);
+      refetch()
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+      toast.error("Failed to user book. Please try again.");
+    }
+  };
+
   return (
     <>
       <div className="container mx-auto px-4 sm:px-8">
@@ -58,8 +61,9 @@ const [deleteUser] = useDeleteUserMutation();
                 </thead>
                 <tbody>
                   {/* User data table row */}
-                  {users.map((user) => (
-                    <UserDataRow key={user.id} user={user} refetch={refetch} handleDelete={handleDelete}/>
+                  {users.map((user :IUser) => (
+                    //@ts-ignore
+                    <UserDataRow key={user.id} user={user} refetch={refetch} handleDelete={handleDelete} />
                   ))}
                 </tbody>
               </table>

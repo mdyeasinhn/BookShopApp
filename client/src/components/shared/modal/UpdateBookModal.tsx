@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Dialog,
   Transition,
@@ -8,7 +9,7 @@ import {
 import { Fragment } from 'react'
 import UpdateBookForm from './updateBookFrom'
 
-const UpdateBookModal = ({ setIsEditModalOpen, isOpen, handleUpdate, book}) => {
+const UpdateBookModal = ({ setIsEditModalOpen, isOpen, handleUpdate, book} :any) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog

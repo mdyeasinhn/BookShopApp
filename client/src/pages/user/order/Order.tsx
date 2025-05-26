@@ -10,7 +10,7 @@ import { toast } from "sonner";
 const Order = () => {
        const [deleteOrder] = useDeleteOrderMutation();
     const user = useAppSelector(selectCurrentUser);
-    const { data: userData, isLoading: userLoading,  } = useGetUserByEmailQuery(user?.email);
+    const { data: userData,   } = useGetUserByEmailQuery(user?.email);
     const email = userData?.data?.email;
 
     const { data: ordersData, isLoading: ordersLoading ,refetch} = useGetMyOrderQuery(email);
@@ -31,7 +31,7 @@ const Order = () => {
 
     console.log(orders);
    // Loading spinner
-   if (ordersLoading) return <LoadingSpinner />
+   if (ordersLoading) return <LoadingSpinner smallHeight={false}/>
     return (
         <div className='container mx-auto px-4 sm:px-8'>
             <div className='py-8'>

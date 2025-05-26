@@ -2,7 +2,7 @@ export interface  IBook{
     _id: string;
     title: string;
     author: string;
-    category: "Mountain" | "Road" | "Hybrid" | "BMX" | "Electric";
+    category: "Fiction" | "Science" | "SelfDevelopement" | "Poetry" | "Religious";
     price: number;
     image: string;
     quantity: number;   

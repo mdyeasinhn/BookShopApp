@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaUserCog } from 'react-icons/fa'
 import MenuItem from './MenuItem'
 import { MdHomeWork } from 'react-icons/md'
-const AdminMenu = ({ closeSidebar }) => {
+const AdminMenu = ({ closeSidebar }:any) => {
     return (
         <>
         
@@ -18,6 +19,7 @@ const AdminMenu = ({ closeSidebar }) => {
                 address="all-books"
             />
             <MenuItem closeSidebar={closeSidebar} icon={FaUserCog} label='Manage Users' address='manage-users' />
+            {/* <MenuItem closeSidebar={closeSidebar} icon={FaUserCog} label='Manage Orders' address='manage-orders' /> */}
         </>
     )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from "mongoose";
 import Book from "../Book/book.model";
 import { IUser } from "../User/user.interface";
@@ -5,9 +6,10 @@ import User from "../User/user.model";
 import { IOrder } from "./order.interface";
 import Order from "./order.model";
 import { orderUtils } from "./order.utils";
+import { PaymentResponse } from "shurjopay";
 
 
-const createOrder = async (user: IUser, payload: IOrder, client_ip: string): Promise<IOrder> => {
+const createOrder = async (user: IUser, payload: IOrder, client_ip: string) => {
   //console.log("Payload:", payload);
   // console.log("User:", user);
   // console.log("Client IP:", client_ip);
@@ -58,7 +60,7 @@ const createOrder = async (user: IUser, payload: IOrder, client_ip: string): Pro
       client_ip,
     };
 
-    const payment = await orderUtils.makePaymentAsync(shurjopayPayload);
+    const payment: any = await orderUtils.makePaymentAsync(shurjopayPayload);
 
     if (payment?.transactionStatus) {
       await Order.findByIdAndUpdate(

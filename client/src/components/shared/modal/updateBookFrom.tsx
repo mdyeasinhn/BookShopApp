@@ -50,6 +50,16 @@ const UpdateBookForm: React.FC<UpdateBookFormProps> = ({ book, handleUpdate }) =
                             placeholder='Author Name'
                         />
                     </div>
+                    <div className='space-y-1 text-sm'>
+                        <label htmlFor='image' className='block text-gray-600'>Image</label>
+                        <input
+                            {...register("image", { required: "Author is required" })}
+                            className='w-full px-4 py-3 text-gray-800 border border-gray-300 focus:outline-rose-500 rounded-md'
+                            id='image'
+                            type='text'
+                            placeholder='Image'
+                        />
+                    </div>
 
                     {/* Category */}
                     <div className='space-y-1 text-sm'>

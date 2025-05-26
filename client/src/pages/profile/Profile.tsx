@@ -14,7 +14,7 @@ const Profile = () => {
 
  
   //   loading spinner
-  if ( isLoading) return <LoadingSpinner />
+  if ( isLoading) return <LoadingSpinner  smallHeight={false}/>
   return (
     <div className='flex justify-center items-center h-screen '>
    

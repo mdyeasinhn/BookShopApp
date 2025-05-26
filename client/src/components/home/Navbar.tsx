@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { AiOutlineMenu } from "react-icons/ai";
 import logo from '../../assets/images/logo-1.svg'
 import { useAppSelector } from "@/redux/hooks";
 import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice";
@@ -52,9 +51,19 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive ? "text-rose-500 font-bold" : "font-bold text-black"
                 }
+                to="/about"
+              >
+                About
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "text-rose-500 font-bold" : "font-bold text-black"
+                }
                 to="/contact"
               >
-                Contact
+                Contect
               </NavLink>
             </div>
           </div>

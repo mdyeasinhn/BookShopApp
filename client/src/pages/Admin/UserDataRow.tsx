@@ -1,7 +1,7 @@
 import { Delete } from "lucide-react"
-
-const UserDataRow = ({ user, refetch, handleDelete }) => {
-    console.log('user',user)
+//@ts-ignore
+const UserDataRow = ({ user ,  handleDelete }) => {
+  
   return (
     <tr>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>

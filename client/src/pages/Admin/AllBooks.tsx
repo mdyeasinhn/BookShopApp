@@ -37,7 +37,7 @@ const AllBooks = () => {
         }
     };
    // Loading spinner
-   if (isLoading) return <LoadingSpinner />
+   if (isLoading) return <LoadingSpinner smallHeight={false}/>
     return (
         <div className="container mx-auto px-4 sm:px-8">
             <div className="py-8">
@@ -56,6 +56,7 @@ const AllBooks = () => {
                             <tbody>
                                 {books.map((book: IBook) =>
                                     book._id ? (
+                                    //@ts-ignore
                                         <BookDataRow book={book} key={book._id} handleDelete={handleDelete} handleUpdate={handleUpdate} />
                                     ) : null
                                 )}

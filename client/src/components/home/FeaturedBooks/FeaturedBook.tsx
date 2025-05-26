@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Container from "@/components/shared/Container";
 
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
@@ -26,7 +27,7 @@ const FeaturedBooks = () => {
 
         {books.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-            {books.slice(0, 6).map((book) => (
+            {books.slice(0, 6).map((book :any) => (
               <BookCard key={book._id} book={book} />
             ))}
           </div>

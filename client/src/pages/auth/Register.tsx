@@ -72,7 +72,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your name" type="text" {...field} />
+                <Input className="rounded-xl" placeholder="Enter your name" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,7 +87,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Photo URL</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your photoUrl" type="text" {...field} />
+                <Input className="rounded-xl" placeholder="Enter your photoUrl" type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -101,7 +101,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" type="email" {...field} />
+                <Input className="rounded-xl" placeholder="Enter your email" type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -116,7 +116,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="*******" type="password" {...field} />
+                <Input className="rounded-xl" placeholder="*******" type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

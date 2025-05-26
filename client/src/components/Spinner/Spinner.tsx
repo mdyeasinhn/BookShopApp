@@ -19,13 +19,3 @@ const Spinner: React.FC = () => {
 
 export default Spinner;
 
-<style>
-  @keyframes spinner-animation {
-    0%, 10%, 20%, 30%, 50%, 60%, 70%, 80%, 90%, 100% {
-      transform: rotate(var(--rotation)) translate(0, var(--translation));
-    }
-    50% {
-      transform: rotate(var(--rotation)) translate(0, calc(var(--translation) * 1.5));
-    }
-  }
-</style>
