@@ -1,46 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Container from "@/components/shared/Container";
-
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
-import { BookCard } from "./BookCard";
+import { BookCard } from "./BookCard"; // We'll use the new BookCard
 import CustomButton from "@/components/ui/CustomButton";
 import { Link } from "react-router-dom";
+import { FiArrowRight } from "react-icons/fi";
+import { BookCardSkeleton } from "./BookCardSkeleton";
 
 const FeaturedBooks = () => {
-  const { data, isLoading, error } = useGetAllBooksQuery({});
+    const { data, isLoading, error } = useGetAllBooksQuery({});
+    const books = data?.data || [];
 
-  // Extract books array from API response
-  console.log(data)
-  const books = data?.data || [];
-  if (isLoading) {
-    return <p className="text-center text-xl">Loading books...</p>;
-  }
+    if (error) {
+        return <p className="text-center text-red-500 py-20">Error fetching books. Please try again later.</p>;
+    }
 
-  if (error) {
-    return <p className="text-center text-red-500">Error fetching books</p>;
-  }
+    return (
+        <section className="py-20 sm:py-24">
+            <Container>
+                <div className="text-center">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Featured Books</h2>
+                    <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                        Explore our hand-picked selection of recent bestsellers and timeless classics.
+                    </p>
+                </div>
 
-  return (
-    <div className="bg-white-900 text-black-800 py-10">
-      <Container>
-        <h2 className="text-center text-3xl font-bold">Featured Books</h2>
+                {/* Grid Layout - 4 Cards per Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16">
+                    {isLoading ? (
+                        // Show 6 skeleton cards while loading
+                        Array.from({ length: 6 }).map((_, index) => <BookCardSkeleton key={index} />)
+                    ) : books.length > 0 ? (
+                        // Show actual book cards (limit to 6 books)
+                        books.slice(0, 6).map((book: any) => <BookCard key={book._id} book={book} />)
+                    ) : (
+                        <p className="text-center text-gray-500 mt-4 col-span-full">No books available at the moment.</p>
+                    )}
+                </div>
 
-        {books.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-            {books.slice(0, 6).map((book :any) => (
-              <BookCard key={book._id} book={book} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-gray-500 mt-4">No books available</p>
-        )}
-
-        <Link to='/books' className="flex justify-center items-center  mt-5">
-          <CustomButton   >View all</CustomButton>
-        </Link>
-      </Container>
-    </div>
-  );
+                {/* View All Books Button */}
+                {!isLoading && books.length > 0 && (
+                    <div className="text-center mt-16">
+                        <Link to='/books'>
+                            <CustomButton className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                                View All Books <FiArrowRight />
+                            </CustomButton>
+                        </Link>
+                    </div>
+                )}
+            </Container>
+        </section>
+    );
 };
 
 export default FeaturedBooks;
