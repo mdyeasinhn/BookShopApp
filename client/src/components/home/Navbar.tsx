@@ -18,6 +18,7 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import logo from '../../assets/images/logo-1.svg'
 import { useAppSelector } from "@/redux/hooks";
 import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useGetUserByEmailQuery } from "@/redux/features/users/usersMangementApi";
@@ -92,10 +93,10 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <FaBook className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl font-bold text-gray-900 hidden sm:block">BookStore</span>
+           
+              <img src={logo} alt="" />
+            
+            
           </Link>
 
           {/* Desktop Navigation */}

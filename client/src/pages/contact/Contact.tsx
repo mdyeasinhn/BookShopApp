@@ -10,7 +10,7 @@ const Contact = () => {
     message: ''
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -207,7 +207,7 @@ const Contact = () => {
                       onChange={handleInputChange}
                       required
                     
-                      rows="5"
+                     
                       className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent dark:text-white transition-all duration-200 group-hover:border-rose-300 resize-none"
                       placeholder="Tell us about your project or ask us a question..."
                     ></textarea>

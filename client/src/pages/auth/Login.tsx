@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { User, Shield, Eye, EyeOff, Mail, Lock, LogIn } from "lucide-react";
-
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useAppDispatch } from "@/redux/hooks";
@@ -75,7 +74,10 @@ const LoginForm = () => {
       if (res?.data?.token) {
         const user = verifyToken(res.data.token) as TUser;
         dispatch(setUser({ user, token: res.data.token }));
-        toast.success("Logged in successfully!", { id: toastId, duration: 2000 });
+        toast.success("Logged in successfully!", {
+          id: toastId,
+          duration: 2000,
+        });
         navigate("/");
       } else {
         throw new Error("Token not found in response.");
@@ -116,7 +118,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
         {/* Left Side - Branding */}
         <div className="hidden lg:block">
@@ -126,7 +128,8 @@ const LoginForm = () => {
                 Welcome Back
               </h1>
               <p className="text-xl text-gray-700 leading-relaxed">
-                Sign in to access your dashboard and manage your account with ease
+                Sign in to access your dashboard and manage your account with
+                ease
               </p>
             </div>
 
@@ -161,12 +164,16 @@ const LoginForm = () => {
                 <LogIn className="w-8 h-8 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h2>
-              <p className="text-gray-600">Enter your credentials to access your account</p>
+              <p className="text-gray-600">
+                Enter your credentials to access your account
+              </p>
             </div>
 
             {/* Demo Credentials */}
             <div className="mb-6">
-              <p className="text-sm font-medium text-gray-700 mb-3 text-center">Quick Demo Access</p>
+              <p className="text-sm font-medium text-gray-700 mb-3 text-center">
+                Quick Demo Access
+              </p>
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => fillDemoCredentials("user")}
@@ -191,7 +198,9 @@ const LoginForm = () => {
                 <div className="w-full border-t border-rose-100"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500 font-medium">OR</span>
+                <span className="px-4 bg-white/80 text-gray-500 font-medium">
+                  OR
+                </span>
               </div>
             </div>
 

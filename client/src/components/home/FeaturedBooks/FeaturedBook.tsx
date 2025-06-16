@@ -16,7 +16,7 @@ const FeaturedBooks = () => {
     }
 
     return (
-        <section className="py-20 sm:py-24">
+        <section className="py-20 sm:py-24 bg-gray-50">
             <Container>
                 <div className="text-center">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Featured Books</h2>
