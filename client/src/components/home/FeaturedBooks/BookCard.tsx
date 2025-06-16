@@ -1,23 +1,12 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import CustomButton from "@/components/ui/CustomButton";
+import { IBook } from "@/types/book.types";
 
-// Define the Book type
-type Book = {
-  _id: string;
-  image?: string;
-  title: string;
-  price: number;
-  location: string;
-  author: string;
-  category: string;
-  availability: boolean;
-  priceRange: string;
-  rating?: number;
-};
+
 
 interface BookCardProps {
-  book: Book;
+  book: IBook;
 }
 
 export function BookCard({ book }: BookCardProps) {
@@ -49,7 +38,7 @@ export function BookCard({ book }: BookCardProps) {
         <div className="flex justify-between items-center w-full mt-4">
           <div className="flex flex-col space-y-1">
             <p className="font-medium text-gray-700 text-md">{book.category}</p>
-            <p className="font-medium text-orange-600 text-sm">{book.priceRange}</p>
+            
           </div>
           <Link to={`/books/${book._id?.toString()}`}>
             <CustomButton className="px-5 rounded-2xl py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg shadow-md hover:from-orange-600 hover:to-orange-700 transition-all duration-200">
