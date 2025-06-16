@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
-import { RegisterForm } from "@/pages/auth/Register";
+
 import NotFoundPage from "@/pages/NotFoundPage";
 import LoginForm from "@/pages/auth/Login";
 import Home from "@/pages/home/Home";
@@ -16,6 +16,7 @@ import PrivateRoute from "./privateRoute";
 import Order from "@/pages/user/order/Order";
 import About from "@/pages/AboutUs/About";
 import Statistics from "@/components/dashboard/Statistics/Statistics";
+import RegisterForm from "@/pages/auth/Register";
 
 
 

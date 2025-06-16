@@ -122,7 +122,7 @@ const LoginForm = () => {
         <div className="hidden lg:block">
           <div className="text-center space-y-6 p-8">
             <div className="space-y-4">
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
+              <h1 className="text-5xl font-bold bg-gradient-to-r from-rose-400 to-rose-500 bg-clip-text text-transparent">
                 Welcome Back
               </h1>
               <p className="text-xl text-gray-700 leading-relaxed">
@@ -136,16 +136,16 @@ const LoginForm = () => {
                 alt="Professional workspace"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-orange-100/50 to-transparent rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-rose-100/50 to-transparent rounded-2xl"></div>
             </div>
 
             <div className="flex items-center justify-center space-x-8 text-gray-600">
               <div className="flex items-center space-x-2">
-                <Shield className="w-5 h-5 text-orange-400" />
+                <Shield className="w-5 h-5 text-rose-400" />
                 <span className="text-sm">Secure Login</span>
               </div>
               <div className="flex items-center space-x-2">
-                <User className="w-5 h-5 text-orange-400" />
+                <User className="w-5 h-5 text-rose-400" />
                 <span className="text-sm">Multi-Role Access</span>
               </div>
             </div>
@@ -154,10 +154,10 @@ const LoginForm = () => {
 
         {/* Right Side - Login Form */}
         <div className="w-full max-w-md mx-auto">
-          <div className="bg-white rounded-3xl shadow-xl border border-orange-100 p-8">
+          <div className="bg-white rounded-3xl shadow-xl border border-rose-100 p-8">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-rose-400 to-rose-500 rounded-2xl mb-4">
                 <LogIn className="w-8 h-8 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h2>
@@ -170,14 +170,14 @@ const LoginForm = () => {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => fillDemoCredentials("user")}
-                  className="flex items-center justify-center space-x-2 py-2.5 px-4 border-2 border-orange-100 text-orange-600 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all duration-200 font-medium"
+                  className="flex items-center justify-center space-x-2 py-2.5 px-4 border-2 border-rose-100 text-rose-600 rounded-xl hover:bg-rose-50 hover:border-rose-200 transition-all duration-200 font-medium"
                 >
                   <User className="w-4 h-4" />
                   <span className="text-sm">Demo User</span>
                 </button>
                 <button
                   onClick={() => fillDemoCredentials("admin")}
-                  className="flex items-center justify-center space-x-2 py-2.5 px-4 border-2 border-orange-100 text-orange-600 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all duration-200 font-medium"
+                  className="flex items-center justify-center space-x-2 py-2.5 px-4 border-2 border-rose-100 text-rose-600 rounded-xl hover:bg-rose-50 hover:border-rose-200 transition-all duration-200 font-medium"
                 >
                   <Shield className="w-4 h-4" />
                   <span className="text-sm">Demo Admin</span>
@@ -188,7 +188,7 @@ const LoginForm = () => {
             {/* Divider */}
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-orange-100"></div>
+                <div className="w-full border-t border-rose-100"></div>
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-4 bg-white text-gray-500 font-medium">OR</span>
@@ -204,16 +204,16 @@ const LoginForm = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-orange-400" />
+                    <Mail className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.email
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="Enter your email"
                   />
@@ -230,16 +230,16 @@ const LoginForm = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-orange-400" />
+                    <Lock className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
-                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.password
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="Enter your password"
                   />
@@ -249,9 +249,9 @@ const LoginForm = () => {
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-orange-400 hover:text-orange-600" />
+                      <EyeOff className="h-5 w-5 text-rose-400 hover:text-rose-600" />
                     ) : (
-                      <Eye className="h-5 w-5 text-orange-400 hover:text-orange-600" />
+                      <Eye className="h-5 w-5 text-rose-400 hover:text-rose-600" />
                     )}
                   </button>
                 </div>
@@ -264,7 +264,7 @@ const LoginForm = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-rose-400 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
               >
                 {isLoading ? (
                   <>
@@ -279,12 +279,12 @@ const LoginForm = () => {
                 )}
               </button>
               {/* Redirect to Signup Link */}
-              <div className="mt-6 pt-6 border-t border-orange-100 text-center">
+              <div className="mt-6 pt-6 border-t border-rose-100 text-center">
                 <p className="text-gray-600 text-sm">
                   Don't have an account?{" "}
                   <Link
                     to="/register"
-                    className="text-orange-500 hover:text-orange-700 font-semibold hover:underline transition-colors"
+                    className="text-rose-500 hover:text-rose-700 font-semibold hover:underline transition-colors"
                   >
                     Sign up
                   </Link>
@@ -305,4 +305,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;   
+export default LoginForm;
