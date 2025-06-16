@@ -44,10 +44,25 @@ const Navbar = () => {
 
   // Close menus when route changes
   useEffect(() => {
-    setIsOpen(false);
-    setIsUserMenuOpen(false);
-    setIsMegaMenuOpen(false);
-  }, [location.pathname]);
+    setIsOpen(false)
+    setIsUserMenuOpen(false)
+  }, [location.pathname])
+
+  // Close user menu when clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        event.target instanceof HTMLElement &&
+        !event.target.closest(".user-menu") &&
+        !event.target.closest(".user-menu-btn")
+      ) {
+        setIsUserMenuOpen(false)
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+    return () => document.removeEventListener("click", handleClickOutside)
+  }, [])
 
   const navigationLinks = [
     { to: "/", label: "Home", icon: FaHome },
@@ -152,12 +167,12 @@ const Navbar = () => {
             </Link>
 
             {/* User Menu */}
-            <div className="relative">
+            <div className="relative user-menu">
               {user ? (
                 <>
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center space-x-2 p-1 rounded-full border-2 border-gray-200 hover:border-rose-300 transition-colors"
+                    className="flex items-center space-x-2 p-1 rounded-full border-2 border-gray-200 hover:border-orange-300 transition-colors"
                   >
                     <img
                       src={userData?.data?.photo || "https://i.pravatar.cc/40"}
