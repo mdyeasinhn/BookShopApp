@@ -10,7 +10,7 @@ const Contact = () => {
     message: ''
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
