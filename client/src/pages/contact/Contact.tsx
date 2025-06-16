@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react';
 import { Phone, Mail, MapPin, Send, Clock } from 'lucide-react';
 
 const Contact = () => {
@@ -11,7 +12,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -19,15 +20,15 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    alert('Message sent successfully!');
-    setFormData({ firstName: '', lastName: '', email: '', message: '' });
-  };
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   // Simulate form submission
+  //   await new Promise(resolve => setTimeout(resolve, 2000));
+  //   setIsSubmitting(false);
+  //   alert('Message sent successfully!');
+  //   setFormData({ firstName: '', lastName: '', email: '', message: '' });
+  // };
 
   const contactInfo = [
     {
@@ -102,7 +103,7 @@ const Contact = () => {
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-8">
                 Get in Touch
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {contactInfo.map((info, index) => (
                   <div
@@ -205,6 +206,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       required
+                    
                       rows="5"
                       className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent dark:text-white transition-all duration-200 group-hover:border-rose-300 resize-none"
                       placeholder="Tell us about your project or ask us a question..."

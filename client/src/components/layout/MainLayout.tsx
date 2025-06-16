@@ -16,11 +16,7 @@ const MainLayout = () => {
             {isLogin || <Navbar />}
 
             <div
-                style={{
-                    padding: 24,
-                    minHeight: 360,
-
-                }}
+             
             >
                 <div className='pt-10 min-h-[calc(100vh-68px)]'>
                     <Outlet />

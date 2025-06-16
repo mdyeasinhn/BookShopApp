@@ -1,43 +1,48 @@
-import { useState, useEffect } from "react"
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { useState, useEffect } from "react";
 import {
-  Menu,
-  X,
-  ChevronDown,
-  User,
-  Settings,
-  BookOpen,
-  Home,
-  Phone,
-  Info,
-  Search,
-  Heart,
-  ShoppingCart,
-} from "lucide-react"
-import { useAppSelector } from "@/redux/hooks"
-import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice"
-import { useDispatch } from "react-redux"
-import { useGetUserByEmailQuery } from "@/redux/features/users/usersMangementApi"
+  FaBars,
+  FaTimes,
+  FaChevronDown,
+  FaUser,
+  FaCog,
+  FaBook,
+  FaHome,
+  FaPhone,
+  FaInfoCircle,
+  FaSearch,
+  FaHeart,
+  FaShoppingCart,
+  FaGraduationCap,
+  FaFlask,
+  FaBolt,
+  FaGlobe,
+} from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@/redux/hooks";
+import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useGetUserByEmailQuery } from "@/redux/features/users/usersMangementApi";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const dispatch = useDispatch()
-  const user = useAppSelector(selectCurrentUser)
-  const { data: userData } = useGetUserByEmailQuery(user?.email)
-  const location = useLocation()
+  const [isOpen, setIsOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const dispatch = useDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  const { data: userData } = useGetUserByEmailQuery(user?.email);
+  const location = useLocation();
 
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  // Close mobile menu when route changes
+  // Close menus when route changes
   useEffect(() => {
     setIsOpen(false)
     setIsUserMenuOpen(false)
@@ -60,13 +65,22 @@ const Navbar = () => {
   }, [])
 
   const navigationLinks = [
-    { to: "/", label: "Home", icon: Home },
-    { to: "/books", label: "Books", icon: BookOpen },
-    { to: "/categories", label: "Categories", icon: Search },
-    { to: "/bestsellers", label: "Bestsellers", icon: Heart },
-    { to: "/about", label: "About", icon: Info },
-    { to: "/contact", label: "Contact", icon: Phone },
-  ]
+    { to: "/", label: "Home", icon: FaHome },
+    { to: "/books", label: "Books", icon: FaBook },
+    { to: "/categories", label: "Categories", icon: FaSearch, hasMegaMenu: true },
+    { to: "/bestsellers", label: "Bestsellers", icon: FaHeart },
+    { to: "/about", label: "About", icon: FaInfoCircle },
+    { to: "/contact", label: "Contact", icon: FaPhone },
+  ];
+
+  const categories = [
+    { name: "Fiction", icon: FaBook, to: "/categories/fiction" },
+    { name: "Non-Fiction", icon: FaGraduationCap, to: "/categories/non-fiction" },
+    { name: "Science", icon: FaFlask, to: "/categories/science" },
+    { name: "History", icon: FaGlobe, to: "/categories/history" },
+    { name: "Fantasy", icon: FaBolt, to: "/categories/fantasy" },
+    { name: "Biography", icon: FaUser, to: "/categories/biography" },
+  ];
 
   return (
     <nav
@@ -78,8 +92,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
-              <BookOpen className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform">
+              <FaBook className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold text-gray-900 hidden sm:block">BookStore</span>
           </Link>
@@ -87,40 +101,67 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navigationLinks.map((link) => {
-              const Icon = link.icon
+              const Icon = link.icon;
               return (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                      isActive
-                        ? "text-orange-600 bg-orange-50"
-                        : "text-gray-700 hover:text-orange-600 hover:bg-orange-50"
-                    }`
-                  }
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{link.label}</span>
-                </NavLink>
-              )
+                <div key={link.to} className="relative">
+                  <NavLink
+                    to={link.to}
+                    onMouseEnter={() => link.hasMegaMenu && setIsMegaMenuOpen(true)}
+                    onMouseLeave={() => link.hasMegaMenu && setIsMegaMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                        isActive
+                          ? "text-rose-600 bg-rose-50"
+                          : "text-gray-700 hover:text-rose-600 hover:bg-rose-50"
+                      }`
+                    }
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{link.label}</span>
+                    {link.hasMegaMenu && (
+                      <FaChevronDown className="w-4 h-4" />
+                    )}
+                  </NavLink>
+                  {link.hasMegaMenu && isMegaMenuOpen && (
+                    <div
+                      onMouseEnter={() => setIsMegaMenuOpen(true)}
+                      onMouseLeave={() => setIsMegaMenuOpen(false)}
+                      className="absolute left-0 top-full mt-2 w-[600px] bg-white rounded-xl shadow-lg border border-gray-100 p-6 grid grid-cols-3 gap-4"
+                    >
+                      {categories.map((category) => {
+                        const CategoryIcon = category.icon;
+                        return (
+                          <Link
+                            key={category.to}
+                            to={category.to}
+                            className="flex items-center space-x-3 p-3 rounded-lg hover:bg-rose-50 transition-colors"
+                          >
+                            <CategoryIcon className="w-5 h-5 text-rose-500" />
+                            <span className="text-sm font-medium text-gray-700">{category.name}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
             })}
           </div>
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
             {/* Search Icon (Desktop) */}
-            <button className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:text-orange-600 hover:bg-orange-50 transition-colors">
-              <Search className="w-5 h-5" />
+            <button className="hidden mdlg:flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+              <FaSearch className="w-5 h-5" />
             </button>
 
             {/* Cart Icon */}
             <Link
               to="/cart"
-              className="relative flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:text-orange-600 hover:bg-orange-50 transition-colors"
+              className="relative flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:text-rose-600 hover:bg-rose-50 transition-colors"
             >
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+              <FaShoppingCart className="w-5 h-5" />
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-rose-500 text-white text-xs rounded-full flex items-center justify-center">
                 3
               </span>
             </Link>
@@ -131,18 +172,17 @@ const Navbar = () => {
                 <>
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="user-menu-btn flex items-center space-x-2 p-1 rounded-full border-2 border-gray-200 hover:border-orange-300 transition-colors"
+                    className="flex items-center space-x-2 p-1 rounded-full border-2 border-gray-200 hover:border-orange-300 transition-colors"
                   >
                     <img
                       src={userData?.data?.photo || "https://i.pravatar.cc/40"}
                       alt="Profile"
                       className="w-8 h-8 rounded-full object-cover"
                     />
-                    <ChevronDown
+                    <FaChevronDown
                       className={`w-4 h-4 text-gray-600 transition-transform ${isUserMenuOpen ? "rotate-180" : ""}`}
                     />
                   </button>
-
                   {isUserMenuOpen && (
                     <div className="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2">
                       <div className="px-4 py-3 border-b border-gray-100">
@@ -151,38 +191,38 @@ const Navbar = () => {
                       </div>
                       <Link
                         to="/dashboard"
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
+                        className="flex items-center space-x-3 px-4 py-3 hover:bg-rose-50 transition-colors"
                       >
-                        <User className="w-4 h-4 text-gray-500" />
+                        <FaUser className="w-4 h-4 text-gray-500" />
                         <span className="text-sm font-medium text-gray-700">Dashboard</span>
                       </Link>
                       <Link
                         to="/profile"
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
+                        className="flex items-center space-x-3 px-4 py-3 hover:bg-rose-50 transition-colors"
                       >
-                        <Settings className="w-4 h-4 text-gray-500" />
+                        <FaCog className="w-4 h-4 text-gray-500" />
                         <span className="text-sm font-medium text-gray-700">Profile Settings</span>
                       </Link>
                       <Link
                         to="/orders"
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
+                        className="flex items-center space-x-3 px-4 py-3 hover:bg-rose-50 transition-colors"
                       >
-                        <ShoppingCart className="w-4 h-4 text-gray-500" />
+                        <FaShoppingCart className="w-4 h-4 text-gray-500" />
                         <span className="text-sm font-medium text-gray-700">My Orders</span>
                       </Link>
                       <Link
                         to="/wishlist"
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
+                        className="flex items-center space-x-3 px-4 py-3 hover:bg-rose-50 transition-colors"
                       >
-                        <Heart className="w-4 h-4 text-gray-500" />
+                        <FaHeart className="w-4 h-4 text-gray-500" />
                         <span className="text-sm font-medium text-gray-700">Wishlist</span>
                       </Link>
                       <div className="border-t border-gray-100 mt-2 pt-2">
                         <button
                           onClick={() => dispatch(logout())}
-                          className="w-full text-left px-4 py-3 hover:bg-red-50 transition-colors"
+                          className="w-full text-left px-4 py-3 hover:bg-rose-50 transition-colors"
                         >
-                          <span className="text-sm font-medium text-red-600">Logout</span>
+                          <span className="text-sm font-medium text-rose-600">Logout</span>
                         </button>
                       </div>
                     </div>
@@ -192,15 +232,9 @@ const Navbar = () => {
                 <div className="flex items-center space-x-3">
                   <Link
                     to="/login"
-                    className="hidden sm:block px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
+                    className="hidden sm:block px-4 py-2 text-sm font-medium text-gray-700 hover:text-rose-600 transition-colors"
                   >
                     Login
-                  </Link>
-                  <Link
-                    to="/register"
-                    className="px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg"
-                  >
-                    Sign Up
                   </Link>
                 </div>
               )}
@@ -209,9 +243,9 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:text-orange-600 hover:bg-orange-50 transition-colors"
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:text-rose-600 hover:bg-rose-50 transition-colors"
             >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -219,34 +253,52 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         <div
           className={`lg:hidden transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
           } overflow-hidden`}
         >
           <div className="py-4 space-y-2 border-t border-gray-100">
             {navigationLinks.map((link) => {
-              const Icon = link.icon
+              const Icon = link.icon;
               return (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-                      isActive
-                        ? "text-orange-600 bg-orange-50"
-                        : "text-gray-700 hover:text-orange-600 hover:bg-orange-50"
-                    }`
-                  }
-                >
-                  <Icon className="w-5 h-5" />
-                  <span>{link.label}</span>
-                </NavLink>
-              )
+                <div key={link.to}>
+                  <NavLink
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+                        isActive
+                          ? "text-rose-600 bg-rose-50"
+                          : "text-gray-700 hover:text-rose-600 hover:bg-rose-50"
+                      }`
+                    }
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span>{link.label}</span>
+                  </NavLink>
+                  {link.hasMegaMenu && (
+                    <div className="pl-8 pt-2 space-y-2">
+                      {categories.map((category) => {
+                        const CategoryIcon = category.icon;
+                        return (
+                          <Link
+                            key={category.to}
+                            to={category.to}
+                            className="flex items-center space-x-3 px-4 py-2 rounded-lg text-gray-700 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                          >
+                            <CategoryIcon className="w-4 h-4 text-rose-500" />
+                            <span className="text-sm">{category.name}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
             })}
 
             {/* Mobile Search */}
             <div className="px-4 py-2">
               <div className="flex items-center space-x-3 px-4 py-3 bg-gray-50 rounded-lg">
-                <Search className="w-5 h-5 text-gray-500" />
+                <FaSearch className="w-5 h-5 text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search books..."
@@ -260,15 +312,9 @@ const Navbar = () => {
               <div className="px-4 py-2 space-y-2">
                 <Link
                   to="/login"
-                  className="block w-full px-4 py-3 text-center text-gray-700 border border-gray-200 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                  className="block w-full px-4 py-3 text-center text-gray-700 border border-gray-200 rounded-lg font-medium hover:bg-rose-50 transition-colors"
                 >
                   Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="block w-full px-4 py-3 text-center bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all"
-                >
-                  Sign Up
                 </Link>
               </div>
             )}
@@ -276,7 +322,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
