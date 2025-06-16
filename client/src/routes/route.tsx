@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
-
 import NotFoundPage from "@/pages/NotFoundPage";
 import LoginForm from "@/pages/auth/Login";
 import Home from "@/pages/home/Home";
@@ -36,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/register',
-                element: <RegisterForm />
+                element: <RegisterForm/>
             },
             {
                 path: '/books',
