@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { FiArrowRight } from "react-icons/fi"; // Example icon
+import { Card } from "@/components/ui/card";
+import CustomButton from "@/components/ui/CustomButton";
 
-// Define the Book type (as you provided)
+// Define the Book type
 type Book = {
   _id: string;
   image?: string;
@@ -20,50 +21,43 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
-  // A fallback image in case book.image is missing or broken
-  const fallbackImage = 'https://i.ibb.co/68B1S8P/image-not-found.jpg';
+  // Fallback image if book image is missing or broken
+  const fallbackImage = "https://i.ibb.co/68B1S8P/image-not-found.jpg";
 
   return (
-    // The <Link> component now wraps the entire card, making it all clickable.
-    <Link to={`/books/${book._id}`} className="group block overflow-hidden">
-      <div className="flex flex-col h-full bg-white border border-slate-200 rounded-xl shadow-sm transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2">
-        {/* Image Container: Uses aspect ratio for responsive, consistent sizing */}
-        <div className="relative overflow-hidden aspect-[4/3]">
+    <Card className="shadow-xl rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div className="w-full p-6 flex flex-col items-center">
+        {/* Image section */}
+        <div className="bg-[#F9F9F9] rounded-xl h-[300px] w-full flex justify-center items-center p-4">
           <img
             src={book.image || fallbackImage}
-            alt={`Cover of ${book.title}`}
-            className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            alt={book.title}
+            className="w-full h-full object-contain rounded-xl shadow-md"
           />
         </div>
 
-        {/* Content Area: Flex-grow allows this area to expand, pushing the footer down */}
-        <div className="flex flex-col flex-grow p-5">
-          <div className="flex-grow">
-            <span className="text-xs font-semibold uppercase tracking-wider text-purple-600">
-              {book.category}
-            </span>
-            <h3 className="mt-2 text-xl font-bold text-slate-800 truncate" title={book.title}>
-              {book.title}
-            </h3>
-            <p className="mt-1 text-sm text-slate-500">
-              by {book.author}
-            </p>
-          </div>
+        {/* Title and Author */}
+        <div className="mt-5 text-center space-y-2">
+          <h2 className="text-2xl font-semibold text-gray-800">{book.title}</h2>
+          <p className="text-gray-600 font-medium text-lg">By: {book.author}</p>
+        </div>
 
-          {/* Footer: Pushed to the bottom by flex-grow on the content area above */}
-          <div className="mt-6 flex justify-between items-center">
-            <p className="text-2xl font-extrabold text-slate-900">
-              ${book.price}
-            </p>
-            
-            {/* A "View" button that is purely visual, as the whole card is a link */}
-            <div className="inline-flex items-center gap-1 font-semibold text-purple-700 transition-all duration-300 group-hover:text-purple-500 group-hover:gap-2">
-              View
-              <FiArrowRight />
-            </div>
+        {/* Divider */}
+        <hr className="border-t border-gray-200 my-4 w-full" />
+
+        {/* Category, Price Range, and View Button */}
+        <div className="flex justify-between items-center w-full mt-4">
+          <div className="flex flex-col space-y-1">
+            <p className="font-medium text-gray-700 text-md">{book.category}</p>
+            <p className="font-medium text-orange-600 text-sm">{book.priceRange}</p>
           </div>
+          <Link to={`/books/${book._id?.toString()}`}>
+            <CustomButton className="px-5 rounded-2xl py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg shadow-md hover:from-orange-600 hover:to-orange-700 transition-all duration-200">
+              View
+            </CustomButton>
+          </Link>
         </div>
       </div>
-    </Link>
+    </Card>
   );
 }

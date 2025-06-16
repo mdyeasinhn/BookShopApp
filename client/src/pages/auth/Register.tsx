@@ -92,10 +92,10 @@ const RegisterForm = () => {
         <div className="hidden lg:block">
           <div className="text-center space-y-6 p-8">
             <div className="space-y-4">
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
+              <h1 className="text-5xl font-bold bg-gradient-to-r from-rose-400 to-rose-500 bg-clip-text text-transparent">
                 Create Account
               </h1>
-              <p className="text-xl text-orange-800 leading-relaxed">
+              <p className="text-xl text-rose-800 leading-relaxed">
                 Sign up to join our community and start your journey!
               </p>
             </div>
@@ -106,40 +106,40 @@ const RegisterForm = () => {
                 alt="Professional workspace"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-orange-100/50 to-transparent rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-rose-100/50 to-transparent rounded-2xl"></div>
             </div>
           </div>
         </div>
 
         {/* Right Side - Register Form */}
         <div className="w-full max-w-md mx-auto">
-          <div className="bg-white rounded-3xl shadow-xl border border-orange-100 p-8">
+          <div className="bg-white rounded-3xl shadow-xl border border-rose-100 p-8">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-rose-400 to-rose-500 rounded-2xl mb-4">
                 <UserPlus className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-orange-900 mb-2">Create Account</h2>
-              <p className="text-orange-700">Sign up to join our community</p>
+              <h2 className="text-3xl font-bold text-rose-900 mb-2">Create Account</h2>
+              <p className="text-rose-700">Sign up to join our community</p>
             </div>
 
             {/* Register Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Field */}
               <div>
-                <label className="block text-sm font-medium text-orange-700 mb-2">Full Name</label>
+                <label className="block text-sm font-medium text-rose-700 mb-2">Full Name</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-orange-400" />
+                    <User className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.name
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="Enter your full name"
                   />
@@ -149,19 +149,19 @@ const RegisterForm = () => {
 
               {/* Photo URL Field */}
               <div>
-                <label className="block text-sm font-medium text-orange-700 mb-2">Photo URL</label>
+                <label className="block text-sm font-medium text-rose-700 mb-2">Photo URL</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Image className="h-5 w-5 text-orange-400" />
+                    <Image className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type="url"
                     value={formData.photo}
                     onChange={(e) => handleInputChange("photo", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.photo
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="https://example.com/photo.jpg"
                   />
@@ -171,19 +171,19 @@ const RegisterForm = () => {
 
               {/* Email Field */}
               <div>
-                <label className="block text-sm font-medium text-orange-700 mb-2">Email Address</label>
+                <label className="block text-sm font-medium text-rose-700 mb-2">Email Address</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-orange-400" />
+                    <Mail className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.email
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="Enter your email"
                   />
@@ -193,19 +193,19 @@ const RegisterForm = () => {
 
               {/* Password Field */}
               <div>
-                <label className="block text-sm font-medium text-orange-700 mb-2">Password</label>
+                <label className="block text-sm font-medium text-rose-700 mb-2">Password</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-orange-400" />
+                    <Lock className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
-                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.password
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="Create a password"
                   />
@@ -215,9 +215,9 @@ const RegisterForm = () => {
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-orange-400 hover:text-orange-600" />
+                      <EyeOff className="h-5 w-5 text-rose-400 hover:text-rose-600" />
                     ) : (
-                      <Eye className="h-5 w-5 text-orange-400 hover:text-orange-600" />
+                      <Eye className="h-5 w-5 text-rose-400 hover:text-rose-600" />
                     )}
                   </button>
                 </div>
@@ -226,19 +226,19 @@ const RegisterForm = () => {
 
               {/* Confirm Password Field */}
               <div>
-                <label className="block text-sm font-medium text-orange-700 mb-2">Confirm Password</label>
+                <label className="block text-sm font-medium text-rose-700 mb-2">Confirm Password</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-orange-400" />
+                    <Lock className="h-5 w-5 text-rose-400" />
                   </div>
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-colors ${
+                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-colors ${
                       errors.confirmPassword
                         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-                        : "border-orange-100"
+                        : "border-rose-100"
                     }`}
                     placeholder="Confirm your password"
                   />
@@ -248,9 +248,9 @@ const RegisterForm = () => {
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="h-5 w-5 text-orange-400 hover:text-orange-600" />
+                      <EyeOff className="h-5 w-5 text-rose-400 hover:text-rose-600" />
                     ) : (
-                      <Eye className="h-5 w-5 text-orange-400 hover:text-orange-600" />
+                      <Eye className="h-5 w-5 text-rose-400 hover:text-rose-600" />
                     )}
                   </button>
                 </div>
@@ -263,7 +263,7 @@ const RegisterForm = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 mt-6"
+                className="w-full bg-gradient-to-r from-rose-400 to-rose-500 hover:from-rose-500 hover:to-rose-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 mt-6"
               >
                 {isLoading ? (
                   <>
@@ -279,12 +279,12 @@ const RegisterForm = () => {
               </button>
 
               {/* Login Link */}
-              <div className="mt-6 pt-6 border-t border-orange-100 text-center">
-                <p className="text-orange-700 text-sm">
+              <div className="mt-6 pt-6 border-t border-rose-100 text-center">
+                <p className="text-rose-700 text-sm">
                   Already have an account?{" "}
                   <Link
                     to="/login"
-                    className="text-orange-600 hover:text-orange-800 font-semibold hover:underline transition-colors"
+                    className="text-rose-600 hover:text-rose-800 font-semibold hover:underline transition-colors"
                   >
                     Sign In
                   </Link>
