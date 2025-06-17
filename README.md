@@ -42,6 +42,7 @@
 git clone https://github.com/your-username/bookory.git
 cd bookory
 
+```bash
 2. **Install dependencies**
 # Frontend
 cd client
@@ -51,16 +52,19 @@ npm install
 cd ../server
 npm install
 
+```bash
 3. **Configure environment variables**
 PORT=5000
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 
+```bash
 4. **Run the app**
 # Start backend
 cd server
 npm run dev
 
+```bash
 # Start frontend (in another terminal)
 cd ../client
 npm run dev
