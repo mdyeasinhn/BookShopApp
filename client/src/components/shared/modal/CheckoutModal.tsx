@@ -207,10 +207,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
                             placeholder="+880 1234 567890"
                             {...register('contact', { 
                               required: 'Phone number is required',
-                              pattern: {
-                               
-                                message: 'Please enter a valid phone number'
-                              }
+                             
                             })}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
