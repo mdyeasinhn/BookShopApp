@@ -22,10 +22,11 @@ const Nav = () => {
 
   // fetch user data
   const { data: userData } = useGetUserByEmailQuery(user?.email);
+  console.log("profile",userData)
 
   // Filter navItems based on user login status
   const filteredNavItems = user
-    ? [...navItems, { name: "Dashboard", href: "/dashboard" }]
+    ? [...navItems]
     : navItems;
 
   return (
@@ -68,7 +69,7 @@ const Nav = () => {
                   key={item.name}
                   to={item.href}
                   className={({ isActive }) =>
-                    `px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 ${
+                    `px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-xl lg:mt-0 ${
                       isActive
                         ? "text-rose-500 dark:text-rose-400 bg-gray-100 dark:bg-gray-700"
                         : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -97,9 +98,9 @@ const Nav = () => {
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                   >
                     <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                      {userData?.data.photoURL ? (
+                      {userData?.data?.photo ? (
                         <img
-                          src={userData.data.photoURL}
+                          src={userData?.data?.photo}
                           className="object-cover w-full h-full"
                           alt="avatar"
                         />
@@ -118,7 +119,7 @@ const Nav = () => {
 
                   {/* Profile dropdown */}
                   {isProfileOpen && (
-                    <div className="absolute right-0 z-30 w-48 mt-2 origin-top-right bg-white rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="absolute right-0 z-30 w-48 mt-2 origin-top-right bg-white rounded-xl shadow-lg dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
                         <Link
                           to="/dashboard/profile"
@@ -156,7 +157,7 @@ const Nav = () => {
                 </div>
               ) : (
                 <Link to="/login">
-                  <Button className="relative overflow-hidden px-3 py-2 rounded-lg font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 hover:shadow-orange-500/50 hover:shadow-lg">
+                  <Button className="relative overflow-hidden px-3 py-2 rounded-xl font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-rose-500 to-rose-500 hover:scale-105 hover:shadow-rose-500/50 hover:shadow-lg">
                     <div className="relative flex items-center space-x-2">
                       <User className="h-5 w-5 text-white" />
                       <span>Login</span>
