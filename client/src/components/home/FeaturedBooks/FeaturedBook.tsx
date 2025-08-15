@@ -2,10 +2,11 @@
 import Container from "@/components/shared/Container";
 import { useGetAllBooksQuery } from "@/redux/features/books/bookManagementApi";
 import { BookCard } from "./BookCard"; // We'll use the new BookCard
-import CustomButton from "@/components/ui/CustomButton";
+
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import { BookCardSkeleton } from "./BookCardSkeleton";
+import { Button } from "@/components/ui/button";
 
 const FeaturedBooks = () => {
     const { data, isLoading, error } = useGetAllBooksQuery({});
@@ -16,7 +17,7 @@ const FeaturedBooks = () => {
     }
 
     return (
-        <section className="py-20 sm:py-24">
+        <section className="py-20 sm:py-24 bg-gray-50">
             <Container>
                 <div className="text-center">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Featured Books</h2>
@@ -26,7 +27,7 @@ const FeaturedBooks = () => {
                 </div>
 
                 {/* Grid Layout - 4 Cards per Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
                     {isLoading ? (
                         // Show 6 skeleton cards while loading
                         Array.from({ length: 6 }).map((_, index) => <BookCardSkeleton key={index} />)
@@ -42,9 +43,9 @@ const FeaturedBooks = () => {
                 {!isLoading && books.length > 0 && (
                     <div className="text-center mt-16">
                         <Link to='/books'>
-                            <CustomButton className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                            <Button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg">
                                 View All Books <FiArrowRight />
-                            </CustomButton>
+                            </Button>
                         </Link>
                     </div>
                 )}

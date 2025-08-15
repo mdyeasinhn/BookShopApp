@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../home/Navbar";
 import Footer from "../home/Footer";
+import Nav from "../home/Nav";
 // import Nav from "../home/Nav";
 
 
@@ -13,7 +14,8 @@ const MainLayout = () => {
     return (
         <div className="">
 
-            {isLogin || <Navbar />}
+            {isLogin || <Nav
+             />}
 
             <div
              
