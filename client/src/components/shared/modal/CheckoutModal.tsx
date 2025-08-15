@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import CustomButton from '@/components/ui/CustomButton';
+
+import { Button } from '@/components/ui/button';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useCreateOrderMutation } from '@/redux/features/order/order';
 import { useAppSelector } from '@/redux/hooks';
@@ -58,7 +59,6 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
 
     const orderData = {
       email: user?.email,
-      // @ts-ignore
       book: bookInfo._id,
       quantity: data.quantity,
       totalPrice: (bookInfo.price * data.quantity).toFixed(2),
@@ -208,7 +208,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
                             {...register('contact', { 
                               required: 'Phone number is required',
                               pattern: {
-                                value: /^[\+]?[1-9][\d]{0,15}$/,
+                               
                                 message: 'Please enter a valid phone number'
                               }
                             })}
@@ -294,7 +294,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
                       >
                         Cancel
                       </button>
-                      <CustomButton
+                      <Button
                         type="submit"
                         className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                         
@@ -310,7 +310,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
                             Secure Checkout
                           </div>
                         )}
-                      </CustomButton>
+                      </Button>
                     </div>
 
                     {/* Security Notice */}
