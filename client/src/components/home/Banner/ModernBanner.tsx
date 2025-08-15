@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles, BookOpen, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ModernBanner = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -30,12 +31,12 @@ const ModernBanner = () => {
     return (
         <div className="mt-5 bg-white flex items-center justify-center p-4">
             <div className={`container mx-auto transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 backdrop-blur-xl border border-gray-200 shadow-xl">
+                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-rose-50 via-rose-100 to-rose-200 backdrop-blur-xl border border-rose-200 shadow-xl">
                     
                     {/* Animated background elements */}
                     <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-300/10 to-purple-300/10 rounded-full animate-pulse"></div>
-                        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-pink-300/10 to-indigo-300/10 rounded-full animate-pulse delay-1000"></div>
+                        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-rose-300/10 to-pink-300/10 rounded-full animate-pulse"></div>
+                        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-pink-300/10 to-rose-400/10 rounded-full animate-pulse delay-1000"></div>
                         
                         {/* Floating icons */}
                         {floatingElements.map((element, index) => {
@@ -43,7 +44,7 @@ const ModernBanner = () => {
                             return (
                                 <div
                                     key={index}
-                                    className="absolute text-gray-400 animate-bounce"
+                                    className="absolute text-rose-400/70 animate-bounce"
                                     style={{
                                         left: element.x,
                                         top: element.y,
@@ -61,7 +62,7 @@ const ModernBanner = () => {
                         {/* Content Section */}
                         <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
                             <div className="space-y-4">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-gray-300/20 to-gray-400/20 border border-gray-500/30 text-gray-600 text-sm font-medium">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-rose-300/20 to-rose-400/20 border border-rose-500/30 text-rose-700 text-sm font-medium">
                                     <Sparkles size={16} />
                                     New Collection Available
                                 </div>
@@ -69,7 +70,7 @@ const ModernBanner = () => {
                                 <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                                     <span className="text-gray-800">Discover</span>
                                     <br />
-                                    <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
+                                    <span className="bg-gradient-to-r from-rose-600 via-rose-500 to-pink-500 bg-clip-text text-transparent">
                                         Amazing Stories
                                     </span>
                                 </h1>
@@ -97,15 +98,17 @@ const ModernBanner = () => {
 
                             {/* CTA Buttons */}
                             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-pink-600 text-white font-semibold rounded-full overflow-hidden transform hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-blue-500/25">
+                                <button className="group relative px-8 py-4 bg-gradient-to-r from-rose-600 to-pink-600 text-white font-semibold rounded-full overflow-hidden transform hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-rose-500/25">
+                                   <Link to="/books">
                                     <span className="relative z-10 flex items-center gap-2">
                                         Explore Collection
                                         <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                     </span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-pink-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                                   </Link>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-rose-700 to-pink-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                                 </button>
                                 
-                                <button className="px-8 py-4 border border-gray-200/20 text-gray-800 font-semibold rounded-full hover:bg-gray-200/10 transition-all duration-300">
+                                <button className="px-8 py-4 border border-rose-200 text-rose-700 font-semibold rounded-full hover:bg-rose-50 transition-all duration-300">
                                     Learn More
                                 </button>
                             </div>
@@ -155,8 +158,8 @@ const ModernBanner = () => {
                             </div>
 
                             {/* Decorative elements around image */}
-                            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-purple-300 to-pink-300 rounded-full animate-pulse"></div>
-                            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-br from-indigo-300 to-purple-300 rounded-full animate-pulse delay-500"></div>
+                            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-rose-300 to-pink-300 rounded-full animate-pulse"></div>
+                            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-br from-pink-300 to-rose-400 rounded-full animate-pulse delay-500"></div>
                         </div>
                     </div>
                 </div>
