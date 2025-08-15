@@ -229,7 +229,7 @@ const Books = () => {
             {data?.data?.length ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {data.data.map((book: IBook) => (
-                  //@ts-ignore
+           
                   <div key={book._id} className="transform hover:scale-105 transition-transform duration-200">
                     <BookCard book={book} />
                   </div>

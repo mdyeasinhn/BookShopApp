@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, User, LogOut, ChevronDown, Bell } from "lucide-react";
+import { Menu, X, User, ChevronDown, Bell } from "lucide-react";
 import { Button } from "../ui/button";
 import logo from '../../assets/images/logo-1.svg';
 import { useDispatch } from "react-redux";
