@@ -12,7 +12,7 @@ export function BookCard({ book }: BookCardProps) {
 
   return (
     <Link to={`/books/${book._id?.toString()}`}>
-      <div className="w-64 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="w-64 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:scale-110 transition-transform duration-300">
         {/* Book Cover Area */}
         <div className="h-48 w-full">
           <img

@@ -1,15 +1,13 @@
 import { useState } from 'react';
 
-// Custom Button Component (since we don't have access to your CustomButton)
-const CustomButton = ({  type = "button", className = "", ...props }) => {
+// Updated Custom Button Component
+const CustomButton = ({ type = "button", className = "", ...props }) => {
   return (
     <button
-     
-      className={`px-8 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
+      type={type}
+      className={`px-8 py-4 rounded-xl font-semibold text-white shadow-md bg-gradient-to-r from-rose-500 to-rose-600 hover:scale-105 hover:shadow-lg hover:shadow-rose-500/50 transition-all duration-300 ${className}`}
       {...props}
-    >
-      
-    </button>
+    />
   );
 };
 
@@ -18,7 +16,7 @@ const Newsletter = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e : any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     
@@ -43,7 +41,7 @@ const Newsletter = () => {
             </p>
             <button
               onClick={() => setIsSubmitted(false)}
-              className="text-gray-600 hover:text-gray-800 underline transition-colors duration-300"
+              className="px-6 py-3 rounded-xl font-semibold text-white shadow-md bg-gradient-to-r from-rose-500 to-rose-600 hover:scale-105 hover:shadow-lg hover:shadow-rose-500/50 transition-all"
             >
               Subscribe another email
             </button>
@@ -56,13 +54,13 @@ const Newsletter = () => {
   return (
     <section className="py-20 px-4 md:px-8 lg:px-16 bg-white relative overflow-hidden">
       {/* Background Decorative Elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-gray-100 rounded-full opacity-30 animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-24 h-24 bg-gray-50 rounded-full opacity-40 animate-pulse"></div>
+      <div className="absolute top-10 left-10 w-32 h-32 bg-rose-100 rounded-full opacity-30 animate-pulse"></div>
+      <div className="absolute bottom-10 right-10 w-24 h-24 bg-rose-50 rounded-full opacity-40 animate-pulse"></div>
       
       <div className="max-w-4xl mx-auto text-center relative z-10">
         {/* Icon and Header */}
         <div className="mb-8">
-          <div className="inline-block p-4 bg-gray-100 rounded-full mb-6 hover:bg-gray-200 transition-colors duration-300">
+          <div className="inline-block p-4 bg-rose-100 rounded-full mb-6 hover:bg-rose-200 transition-colors duration-300">
             <svg className="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -84,17 +82,17 @@ const Newsletter = () => {
 
           {/* Benefits */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-gray-50 rounded-2xl p-6 hover:bg-gray-100 transition-colors duration-300">
+            <div className="bg-rose-50 rounded-2xl p-6 hover:bg-rose-100 transition-colors duration-300">
               <div className="text-3xl mb-3">📚</div>
               <h3 className="font-semibold text-gray-900 mb-2">New Arrivals</h3>
               <p className="text-gray-600 text-sm">Be the first to know about the latest books</p>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-6 hover:bg-gray-100 transition-colors duration-300">
+            <div className="bg-rose-50 rounded-2xl p-6 hover:bg-rose-100 transition-colors duration-300">
               <div className="text-3xl mb-3">💰</div>
               <h3 className="font-semibold text-gray-900 mb-2">Exclusive Deals</h3>
               <p className="text-gray-600 text-sm">Get subscriber-only discounts and offers</p>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-6 hover:bg-gray-100 transition-colors duration-300">
+            <div className="bg-rose-50 rounded-2xl p-6 hover:bg-rose-100 transition-colors duration-300">
               <div className="text-3xl mb-3">✨</div>
               <h3 className="font-semibold text-gray-900 mb-2">Book Recommendations</h3>
               <p className="text-gray-600 text-sm">Curated picks from our expert team</p>
@@ -147,9 +145,9 @@ const Newsletter = () => {
         <div className="mt-12 flex items-center justify-center space-x-8 text-gray-500">
           <div className="flex items-center">
             <div className="flex -space-x-2 mr-2">
-              <div className="w-8 h-8 bg-gray-300 rounded-full border-2 border-white"></div>
-              <div className="w-8 h-8 bg-gray-400 rounded-full border-2 border-white"></div>
-              <div className="w-8 h-8 bg-gray-500 rounded-full border-2 border-white"></div>
+              <div className="w-8 h-8 bg-rose-300 rounded-full border-2 border-white"></div>
+              <div className="w-8 h-8 bg-rose-400 rounded-full border-2 border-white"></div>
+              <div className="w-8 h-8 bg-rose-500 rounded-full border-2 border-white"></div>
             </div>
             <span className="text-sm">Join 12+ subscribers</span>
           </div>
