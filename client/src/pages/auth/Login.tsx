@@ -19,7 +19,7 @@ type DemoCredentials = {
 
 const demoCredentials = {
   user: {
-    email: "user@demo.com",
+    email: "user@gmail.com",
     password: "user123",
   },
   admin: {

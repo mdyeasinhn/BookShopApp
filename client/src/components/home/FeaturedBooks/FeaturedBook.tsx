@@ -19,8 +19,9 @@ const FeaturedBooks = () => {
     return (
         <section className="py-20 sm:py-24 bg-gray-50">
             <Container>
-                <div className="text-center">
+                <div className="text-center relative">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">Featured Books</h2>
+                            <div className="absolute bottom-7 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full"></div>
                     <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
                         Explore our hand-picked selection of recent bestsellers and timeless classics.
                     </p>
@@ -43,7 +44,7 @@ const FeaturedBooks = () => {
                 {!isLoading && books.length > 0 && (
                     <div className="text-center mt-16">
                         <Link to='/books'>
-                            <Button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                            <Button className="inline-flex items-center gap-2 px-6 py-5 bg-gradient-to-r from-rose-500 to-rose-600 text-white rounded-xl font-medium hover:from-rose-600 hover:to-rose-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-rose-500/50">
                                 View All Books <FiArrowRight />
                             </Button>
                         </Link>
