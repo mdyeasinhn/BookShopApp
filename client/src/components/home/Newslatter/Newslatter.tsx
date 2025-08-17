@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
 // Updated Custom Button Component
-const CustomButton = ({ type = "button", className = "", ...props }) => {
+const CustomButton = ({  className = "", ...props }) => {
   return (
     <button
-      type={type}
       className={`px-8 py-4 rounded-xl font-semibold text-white shadow-md bg-gradient-to-r from-rose-500 to-rose-600 hover:scale-105 hover:shadow-lg hover:shadow-rose-500/50 transition-all duration-300 ${className}`}
       {...props}
     />

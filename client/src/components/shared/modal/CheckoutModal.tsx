@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Button } from '@/components/ui/button';
 import { selectCurrentUser } from '@/redux/features/auth/authSlice';
 import { useCreateOrderMutation } from '@/redux/features/order/order';
@@ -50,6 +49,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
   });
 
   const quantity = watch('quantity');
+  const totalPrice = (bookInfo.price * quantity).toFixed(2);
 
   const onSubmit = async (data: any) => {
     if (user?.role === 'admin') {
@@ -61,7 +61,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
       email: user?.email,
       book: bookInfo._id,
       quantity: data.quantity,
-      totalPrice: (bookInfo.price * data.quantity).toFixed(2),
+      totalPrice,
       address: data.address,
       contact: data.contact,
     };
@@ -108,7 +108,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -122,17 +122,16 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all">
+              <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-xl bg-white shadow-xl transition-all">
                 {/* Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+                <div className="bg-gradient-to-r from-rose-500 to-pink-600 px-6 py-4">
                   <div className="flex items-center justify-between">
-                    <DialogTitle className="text-xl font-semibold text-white flex items-center">
-                      <span className="mr-2">🛒</span>
-                      Complete Your Purchase
+                    <DialogTitle className="text-lg font-semibold text-white">
+                      Complete Your Order
                     </DialogTitle>
                     <button
                       onClick={closeModal}
-                      className="text-white/80 hover:text-white transition-colors p-1 rounded-full hover:bg-white/20"
+                      className="text-white/80 hover:text-white transition-colors"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -143,140 +142,104 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
 
                 <div className="p-6">
                   {/* Book Preview */}
-                  <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mb-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="relative">
-                        <img
-                          src={bookInfo.image}
-                          alt={bookInfo.title}
-                          className="w-16 h-20 object-cover rounded-lg shadow-md"
-                        />
-                        <div className="absolute -top-1 -right-1 bg-green-500 w-3 h-3 rounded-full"></div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 text-sm leading-tight">{bookInfo.title}</h3>
-                        {bookInfo.author && (
-                          <p className="text-xs text-gray-600 mt-1">by {bookInfo.author}</p>
-                        )}
-                        <div className="flex items-center mt-2">
-                          <span className="text-lg font-bold text-blue-600">${bookInfo.price.toFixed(2)}</span>
-                          <span className="text-xs text-gray-500 ml-2">per item</span>
-                        </div>
+                  <div className="flex items-start gap-4 mb-6 p-4 bg-rose-50 rounded-xl">
+                    <img
+                      src={bookInfo.image}
+                      alt={bookInfo.title}
+                      className="w-16 h-20 object-cover rounded-lg shadow-sm"
+                    />
+                    <div>
+                      <h3 className="font-medium text-gray-900">{bookInfo.title}</h3>
+                      {bookInfo.author && (
+                        <p className="text-sm text-gray-600 mt-1">by {bookInfo.author}</p>
+                      )}
+                      <div className="mt-2 flex items-center">
+                        <span className="text-gray-900 font-medium">${bookInfo.price.toFixed(2)}</span>
+                        <span className="text-xs text-gray-500 ml-2">× {quantity}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Form */}
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    {/* Quantity and Contact Row */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Quantity
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="number"
-                            min="1"
-                            max="10"
-                            {...register('quantity', { 
-                              valueAsNumber: true, 
-                              min: { value: 1, message: 'Minimum quantity is 1' },
-                              max: { value: 10, message: 'Maximum quantity is 10' }
-                            })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          />
-                          <div className="absolute right-2 top-2 text-gray-400">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4z" />
-                            </svg>
-                          </div>
-                        </div>
-                        {errors.quantity && (
-                          <p className="text-red-500 text-xs mt-1">{errors.quantity.message}</p>
-                        )}
-                      </div>
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    {/* Quantity */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Quantity
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        max="10"
+                        {...register('quantity', { 
+                          valueAsNumber: true, 
+                          min: { value: 1, message: 'Minimum quantity is 1' },
+                          max: { value: 10, message: 'Maximum quantity is 10' }
+                        })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+                      />
+                      {errors.quantity && (
+                        <p className="text-red-500 text-xs mt-1">{errors.quantity.message}</p>
+                      )}
+                    </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Phone Number
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="tel"
-                            placeholder="+880 1234 567890"
-                            {...register('contact', { 
-                              required: 'Phone number is required',
-                             
-                            })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          />
-                          <div className="absolute right-2 top-2 text-gray-400">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                          </div>
-                        </div>
-                        {errors.contact && (
-                          <p className="text-red-500 text-xs mt-1">{errors.contact.message}</p>
-                        )}
-                      </div>
+                    {/* Contact */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="+880 1234 567890"
+                        {...register('contact', { 
+                          required: 'Phone number is required',
+                          pattern: {
+                            value: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+                            message: 'Invalid phone number format'
+                          }
+                        })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+                      />
+                      {errors.contact && (
+                        <p className="text-red-500 text-xs mt-1">{errors.contact.message}</p>
+                      )}
                     </div>
 
                     {/* Address */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
                         Delivery Address
                       </label>
-                      <div className="relative">
-                        <textarea
-                          rows={3}
-                          placeholder="Enter your complete delivery address..."
-                          {...register('address', { 
-                            required: 'Delivery address is required',
-                            minLength: { value: 10, message: 'Address must be at least 10 characters' }
-                          })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-                        />
-                        <div className="absolute right-2 top-2 text-gray-400">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                        </div>
-                      </div>
+                      <textarea
+                        rows={3}
+                        placeholder="Enter your complete delivery address..."
+                        {...register('address', { 
+                          required: 'Delivery address is required',
+                          minLength: { value: 10, message: 'Address must be at least 10 characters' }
+                        })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+                      />
                       {errors.address && (
                         <p className="text-red-500 text-xs mt-1">{errors.address.message}</p>
                       )}
                     </div>
 
                     {/* Order Summary */}
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                      <h4 className="font-medium text-gray-900 mb-3 flex items-center">
-                        <span className="mr-2">📋</span>
-                        Order Summary
-                      </h4>
+                    <div className="bg-rose-50 rounded-xl p-4 border border-rose-100">
+                      <h4 className="font-medium text-gray-900 mb-3">Order Summary</h4>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Item Price:</span>
-                          <span className="font-medium">${bookInfo.price.toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Quantity:</span>
-                          <span className="font-medium">×{quantity}</span>
-                        </div>
-                        <div className="flex justify-between">
                           <span className="text-gray-600">Subtotal:</span>
-                          <span className="font-medium">${(bookInfo.price * quantity).toFixed(2)}</span>
+                          <span className="font-medium">${totalPrice}</span>
                         </div>
-                        <div className="flex justify-between text-green-600">
-                          <span>Delivery:</span>
-                          <span className="font-medium">FREE</span>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Shipping:</span>
+                          <span className="text-green-600">FREE</span>
                         </div>
-                        <hr className="border-gray-200" />
-                        <div className="flex justify-between text-lg font-bold text-gray-900">
+                        <div className="border-t border-rose-200 my-2"></div>
+                        <div className="flex justify-between font-medium text-gray-900">
                           <span>Total:</span>
-                          <span className="text-blue-600">${(bookInfo.price * quantity).toFixed(2)}</span>
+                          <span className="text-rose-600">${totalPrice}</span>
                         </div>
                       </div>
                     </div>
@@ -286,36 +249,36 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ closeModal, isOpen, bookI
                       <button
                         type="button"
                         onClick={closeModal}
-                        className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                        className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
                         disabled={loading}
                       >
                         Cancel
                       </button>
                       <Button
                         type="submit"
-                        className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                        
+                        className="flex-1 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-medium py-2.5 rounded-xl shadow-sm"
+                        disabled={loading}
                       >
                         {loading ? (
-                          <div className="flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          <span className="flex items-center justify-center">
+                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
                             Processing...
-                          </div>
+                          </span>
                         ) : (
-                          <div className="flex items-center justify-center">
-                            <span className="mr-2">🔒</span>
-                            Secure Checkout
-                          </div>
+                          'Proceed to Payment'
                         )}
                       </Button>
                     </div>
 
                     {/* Security Notice */}
                     <div className="flex items-center justify-center text-xs text-gray-500 mt-3">
-                      <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      <svg className="w-4 h-4 mr-1 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
-                      Your payment information is secure and encrypted
+                      Secure checkout
                     </div>
                   </form>
                 </div>
