@@ -29,7 +29,7 @@ const BookDetails: React.FC = () => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-500"></div>
             </div>
         );
     }
@@ -46,110 +46,119 @@ const BookDetails: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white py-8">
-            <div className="max-w-7xl mx-auto px-4">
+        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto">
                 {/* Breadcrumb */}
-                <nav className="mb-8">
-                    <div className="flex items-center space-x-2 text-sm text-gray-500">
-                        <span className="hover:text-orange-600 cursor-pointer transition-colors">Home</span>
-                        <span>/</span>
-                        <span className="hover:text-orange-600 cursor-pointer transition-colors">Books</span>
-                        <span>/</span>
-                        <span className="text-gray-900 font-medium">{book.title}</span>
-                    </div>
+                <nav className="mb-6">
+                    <ol className="flex items-center space-x-2 text-sm text-gray-600">
+                        <li>
+                            <a href="#" className="hover:text-rose-500 transition-colors">Home</a>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <a href="#" className="hover:text-rose-500 transition-colors">Books</a>
+                        </li>
+                        <li>/</li>
+                        <li className="text-gray-900 font-medium truncate max-w-xs">{book.title}</li>
+                    </ol>
                 </nav>
 
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-                    <div className="lg:flex">
-                        {/* Book Image Section */}
-                        <div className="lg:w-2/5 p-8 bg-gradient-to-br from-gray-50 to-gray-100">
-                            <div className="relative">
+                <div className="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div className="md:flex">
+                        {/* Book Image */}
+                        <div className="md:w-1/3 p-6 bg-gray-100 flex items-center justify-center">
+                            <div className="relative h-96 w-full">
                                 <img
                                     src={book.image}
                                     alt={book.title}
-                                    className="w-full h-96 object-cover rounded-2xl shadow-xl"
+                                    className="h-full w-full object-contain rounded-xl shadow-sm"
                                 />
-                                {/* Stock badge */}
-                                <div className="absolute top-4 right-4">
-                                    <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+                                {availableStock > 0 && (
+                                    <span className="absolute top-3 right-3 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
                                         {availableStock} in stock
                                     </span>
-                                </div>
+                                )}
                             </div>
                         </div>
 
-                        {/* Book Details Section */}
-                        <div className="lg:w-3/5 p-8 lg:p-12">
+                        {/* Book Details */}
+                        <div className="md:w-2/3 p-6 md:p-8">
                             <div className="space-y-6">
-                                {/* Title and Author */}
                                 <div>
-                                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                                        {book.title}
-                                    </h1>
-                                    <p className="text-xl text-orange-600 font-semibold">
-                                        by {book.author}
-                                    </p>
+                                    <h1 className="text-3xl font-bold text-gray-900">{book.title}</h1>
+                                    <p className="text-lg text-gray-600 mt-1">by {book.author}</p>
                                 </div>
 
-                                {/* Price */}
                                 <div className="flex items-center space-x-4">
-                                    <span className="text-5xl font-bold text-orange-600">${book.price}</span>
-                                    <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
-                                        Best Price
+                                    <span className="text-4xl font-bold text-rose-600">${book.price}</span>
+                                    {availableStock > 0 && (
+                                        <span className="text-sm text-green-600">Available</span>
+                                    )}
+                                </div>
+
+                                <div className="pt-4 border-t border-gray-200">
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+                                    <p className="text-gray-700 leading-relaxed">{book.description}</p>
+                                </div>
+
+                                <div className="pt-4 border-t border-gray-200">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h3 className="text-lg font-semibold text-gray-900 mb-3">Quantity</h3>
+                                            <div className="flex items-center space-x-4">
+                                                <div className="flex items-center border border-gray-300 rounded-xl">
+                                                    <button
+                                                        onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
+                                                        className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-l-lg"
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span className="w-12 h-10 flex items-center justify-center border-x border-gray-300 bg-white">
+                                                        {selectedQuantity}
+                                                    </span>
+                                                    <button
+                                                        onClick={() => setSelectedQuantity(Math.min(availableStock, selectedQuantity + 1))}
+                                                        className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 rounded-r-lg"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                                <span className="text-sm text-gray-500">
+                                                    {availableStock} available
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-sm text-gray-500">Total</p>
+                                            <p className="text-2xl font-bold text-rose-600">
+                                                ${(book.price * selectedQuantity).toFixed(2)}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Description */}
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-3">About this book</h3>
-                                    <p className="text-gray-700 leading-relaxed text-lg">{book.description}</p>
-                                </div>
-
-                                {/* Quantity Selector */}
-                                <div className="flex items-center space-x-6">
-                                    <span className="text-lg font-semibold text-gray-700">Quantity:</span>
-                                    <div className="flex items-center bg-gray-100 rounded-xl">
-                                        <button 
-                                            onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
-                                            className="w-12 h-12 flex items-center justify-center text-2xl text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-l-xl transition-all"
-                                        >
-                                            -
-                                        </button>
-                                        <span className="w-16 h-12 flex items-center justify-center text-xl font-semibold bg-white border-x border-gray-200">
-                                            {selectedQuantity}
-                                        </span>
-                                        <button 
-                                            onClick={() => setSelectedQuantity(Math.min(availableStock, selectedQuantity + 1))}
-                                            className="w-12 h-12 flex items-center justify-center text-2xl text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-r-xl transition-all"
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Action Button */}
-                                <div className="pt-4">
-                                    <Button 
+                                <div className="pt-4 border-t border-gray-200">
+                                    <Button
                                         onClick={() => setIsOpen(true)}
-                                        className="w-full lg:w-auto bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
+                                        className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-xl shadow-md hover:shadow-lg hover:shadow-rose-500/50 transition-all"
+                                        disabled={availableStock <= 0}
                                     >
-                                        Buy Now - ${(book.price * selectedQuantity).toFixed(2)}
+                                        {availableStock > 0 ? `Buy Now` : 'Out of Stock'}
                                     </Button>
                                 </div>
 
-                                {/* Features */}
-                                <div className="grid grid-cols-3 gap-4 pt-8 border-t border-gray-200">
-                                    <div className="text-center p-4 bg-green-50 rounded-xl">
-                                        <div className="text-3xl mb-2">🚚</div>
-                                        <div className="text-sm font-medium text-green-700">Free Shipping</div>
+                                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+                                    <div className="flex flex-col items-center p-3 bg-gray-50 rounded-xl">
+                                        <span className="text-2xl mb-2">🚚</span>
+                                        <span className="text-xs font-medium text-gray-700 text-center">Free Shipping</span>
                                     </div>
-                                    <div className="text-center p-4 bg-blue-50 rounded-xl">
-                                        <div className="text-3xl mb-2">🔄</div>
-                                        <div className="text-sm font-medium text-blue-700">30-Day Returns</div>
+                                    <div className="flex flex-col items-center p-3 bg-gray-50 rounded-xl">
+                                        <span className="text-2xl mb-2">🔄</span>
+                                        <span className="text-xs font-medium text-gray-700 text-center">Easy Returns</span>
                                     </div>
-                                    <div className="text-center p-4 bg-purple-50 rounded-xl">
-                                        <div className="text-3xl mb-2">🔒</div>
-                                        <div className="text-sm font-medium text-purple-700">Secure Payment</div>
+                                    <div className="flex flex-col items-center p-3 bg-gray-50 rounded-xl">
+                                        <span className="text-2xl mb-2">🔒</span>
+                                        <span className="text-xs font-medium text-gray-700 text-center">Secure Checkout</span>
                                     </div>
                                 </div>
                             </div>
@@ -159,10 +168,10 @@ const BookDetails: React.FC = () => {
             </div>
 
             {book && (
-                <CheckoutModal 
-                    isOpen={isOpen} 
-                    closeModal={closeModal} 
-                    bookInfo={{...book, selectedQuantity}} 
+                <CheckoutModal
+                    isOpen={isOpen}
+                    closeModal={closeModal}
+                    bookInfo={{ ...book, selectedQuantity }}
                 />
             )}
         </div>
